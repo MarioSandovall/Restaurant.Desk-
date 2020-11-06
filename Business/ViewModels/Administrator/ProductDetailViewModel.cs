@@ -88,7 +88,7 @@ namespace Business.ViewModels.Administrator
         {
             var openFile = new OpenFileDialog
             {
-                Title = "Selecione una imagen",
+                Title = "Select an image",
                 Filter = "All | *.jpg; *.jpeg; *.png"
             };
 

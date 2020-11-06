@@ -1,9 +1,9 @@
-﻿using Model.Models;
+﻿using Model.Models.Login;
 using Prism.Events;
 
 namespace Business.Events.Login
 {
-    public class EmailLoginValidEvent : PubSubEvent<User>
+    public class EmailLoginValidEvent : PubSubEvent<UserAccount>
     {
 
     }

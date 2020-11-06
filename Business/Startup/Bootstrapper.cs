@@ -92,7 +92,10 @@ namespace Business.Startup
             _builder.RegisterType<SoftwareUpdateViewModel>().As<ISoftwareUpdateViewModel>().SingleInstance();
 
 
-            ////Repositories
+            //Repositories
+
+            _builder.RegisterType<AccountRepository>().As<IAccountRepository>();
+
             _builder.RegisterType<UserRepository>().As<IUserRepository>();
             _builder.RegisterType<OrderRepository>().As<IOrderRepository>();
             _builder.RegisterType<TableRepository>().As<ITableRepository>();
@@ -102,6 +105,7 @@ namespace Business.Startup
             _builder.RegisterType<CashRegisterRepository>().As<ICashRegisterRepository>();
 
             //Operations
+
             _builder.RegisterType<CashRegisterOperation>().As<ICashRegisterOperation>();
         }
     }
