@@ -1,4 +1,6 @@
 ﻿using Model.Models;
+using Service.Extensions;
+using Service.Utils;
 using System.Collections.Generic;
 
 namespace Business.Wrappers
@@ -61,7 +63,7 @@ namespace Business.Wrappers
 
         public UserWrapper(User model) : base(model)
         {
-            //Image = model.Image ?? ImageHelper.ProfileImg.ImgUrlToByteArray();
+            Image = model.Image ?? RestaurantImages.Profile.ImgUrlToByteArray();
         }
 
         public void Update(User user)

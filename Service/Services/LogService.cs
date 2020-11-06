@@ -1,7 +1,7 @@
 ﻿using Model.Utils;
 using Service.Interfaces;
+using Service.Utils;
 using System;
-using System.Configuration;
 using System.IO;
 
 namespace Service.Services
@@ -10,7 +10,7 @@ namespace Service.Services
     {
         public void Write(Exception ex)
         {
-            var directory = ConfigurationManager.AppSettings["Directory"];
+            var directory = ConfigHelper.Directory;
             directory = Path.Combine(directory, SystemDirectory.Log);
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 

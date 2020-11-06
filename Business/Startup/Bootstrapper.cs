@@ -4,11 +4,11 @@ using Business.Interfaces.Home;
 using Business.Interfaces.Login;
 using Business.Interfaces.Operations;
 using Business.Interfaces.Register;
-using Business.Utilities.Operations;
-using Business.ViewModels;
+using Business.Utils.Operations;
 using Business.ViewModels.Administrator;
 using Business.ViewModels.Home;
 using Business.ViewModels.Login;
+using Business.ViewModels.Main;
 using Business.ViewModels.Register;
 using Prism.Events;
 using Repository.Interfaces;
@@ -24,7 +24,7 @@ namespace Business.Startup
         private readonly ContainerBuilder _builder;
         public Bootstrapper()
         {
-            if (_builder == null) _builder = new ContainerBuilder(); ;
+            if (_builder == null) _builder = new ContainerBuilder();
         }
 
         public static Bootstrapper Instance { get; } = new Bootstrapper();
@@ -37,7 +37,6 @@ namespace Business.Startup
 
         private void RegisterTypes()
         {
-            _builder.RegisterType<MainViewModel>().AsSelf();
 
             //Events 
             _builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
@@ -53,6 +52,8 @@ namespace Business.Startup
             _builder.RegisterType<PrintingService>().As<IPrintingService>().SingleInstance();
 
             //ViewModels
+            _builder.RegisterType<MainViewModel>().AsSelf();
+
             _builder.RegisterType<TableViewModel>().As<ITableViewModel>();
             _builder.RegisterType<OfficeViewModel>().As<IOfficeViewModel>();
             _builder.RegisterType<HomeViewModel>().As<IHomeViewModel>().SingleInstance();
@@ -84,7 +85,7 @@ namespace Business.Startup
             _builder.RegisterType<ChargeViewModel>().As<IChargeViewModel>().SingleInstance();
             _builder.RegisterType<UserDetailViewModel>().As<IUserDetailViewModel>().SingleInstance();
             _builder.RegisterType<InitialCashRegisterViewModel>().As<IInitialCashRegisterViewModel>();
-            _builder.RegisterType<TableDetailViewMoldel>().As<ITableDetailViewMoldel>().SingleInstance();
+            _builder.RegisterType<TableDetailViewModel>().As<ITableDetailViewMoldel>().SingleInstance();
             _builder.RegisterType<OfficeDetailViewModel>().As<IOfficeDetailViewModel>().SingleInstance();
             _builder.RegisterType<ProductDetailViewModel>().As<IProductDetailViewModel>().SingleInstance();
             _builder.RegisterType<CategoryDetailViewModel>().As<ICategoryDetailViewModel>().SingleInstance();

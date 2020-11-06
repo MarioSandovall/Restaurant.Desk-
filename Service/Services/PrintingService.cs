@@ -64,7 +64,7 @@ namespace Service.Services
 
             var office = _dataService.CurrentOffice;
             var restaurant = _dataService.Restaurant;
-            using (var document = PurcheseDocument.Generate(details, office, restaurant))
+            using (var document = PurchaseDocument.Generate(details, office, restaurant))
             {
                 document.PrinterSettings.PrinterName = DefaultPrinter;
                 document.Print();

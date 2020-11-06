@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces.Register;
+using Business.ViewModels.Main;
 using Prism.Commands;
 using Prism.Events;
 using Repository.Interfaces;

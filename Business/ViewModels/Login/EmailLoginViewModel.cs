@@ -1,7 +1,7 @@
 ﻿using Business.Events.Home;
 using Business.Events.Login;
 using Business.Interfaces.Administrator;
-using Business.Utilities;
+using Business.ViewModels.Main;
 using Model.Utils;
 using Prism.Commands;
 using Prism.Events;
@@ -9,6 +9,8 @@ using Repository.Interfaces;
 using Service.Interfaces;
 using System;
 using System.Windows.Input;
+using Business.Extensions;
+using Business.Utils;
 
 namespace Business.ViewModels.Login
 {
@@ -67,7 +69,6 @@ namespace Business.ViewModels.Login
         {
             Email = string.Empty;
             IsFocusable = true;
-            Email = "mario_sandovall@outlook.com";
             OnValidateExecute();
         }
 

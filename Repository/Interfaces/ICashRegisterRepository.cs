@@ -9,7 +9,9 @@ namespace Repository.Interfaces
     public interface ICashRegisterRepository
     {
         Task<IResponse> SetCashRegisterAsync(CashRegister model);
+
         Task<IValueResponse<ICollection<OrderInfoDto>>> GetCashRegisterInfoAsync(int cashRegisterId);
+        
         Task<IValueResponse<CashRegisterInfoDto>> GetCashRegisterByOfficesAsync(int officeId);
     }
 }

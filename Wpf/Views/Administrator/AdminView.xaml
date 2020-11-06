@@ -55,7 +55,7 @@
         <administrator:CategoryDetailView  DataContext="{Binding CategoryDetailViewModel}"/>
         <administrator:ProductDetailView  DataContext="{Binding ProductDetailViewModel}"/>
         <administrator:UserDetailView  DataContext="{Binding UserDetailViewModel}"/>
-        <administrator:TableDetailView  DataContext="{Binding TableDetailViewMoldel}"/>
+        <administrator:TableDetailView  DataContext="{Binding tableDetailViewModel}"/>
         <administrator:OfficeDetailView  DataContext="{Binding OfficeDetailViewModel}"/>
 
     </Grid>

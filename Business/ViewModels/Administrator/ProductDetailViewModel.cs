@@ -1,13 +1,15 @@
-﻿using Business.Events;
-using Business.Extensions;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Microsoft.Win32;
 using Model.Models;
 using Prism.Commands;
 using Prism.Events;
 using Repository.Interfaces;
+using Service.Extensions;
 using Service.Interfaces;
+using Service.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -109,14 +111,14 @@ namespace Business.ViewModels.Administrator
             Product.Description = model.Description;
             Product.RestaurantId = _dataService.Restaurant.Id;
             Product.ProductCategoryId = model.ProductCategoryId;
-            Product.Image = model.Image ?? ImageExtension.ProductImg.ImgUrlToByteArray();
+            Product.Image = model.Image ?? RestaurantImages.Product.ImgUrlToByteArray();
 
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
 
         private void OnDeleteImageExecute()
         {
-            Product.Image = ImageExtension.ProductImg.ImgUrlToByteArray();
+            Product.Image = RestaurantImages.Product.ImgUrlToByteArray();
         }
 
         private void WrapperOnPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using Business.Events;
+﻿using Business.Events.Administrator;
+using Business.Events.Register;
 using Business.Interfaces.Operations;
 using Business.Interfaces.Register;
 using Business.Wrappers;

@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces.Register;
+using Business.ViewModels.Main;
 using Model.Models;
 using Prism.Events;
 using Repository.Interfaces;
@@ -24,7 +25,6 @@ namespace Business.ViewModels.Register
         private readonly ILogService _logService;
         private readonly IDataService _dataService;
         private readonly IDialogService _dialogService;
-        private readonly IEventAggregator _eventAggregator;
         private readonly ICashRegisterRepository _cashRegisterRepository;
         public InitialCashRegisterViewModel(
             ILogService logService,
@@ -37,7 +37,6 @@ namespace Business.ViewModels.Register
             _logService = logService;
             _dataService = dataService;
             _dialogService = dialogService;
-            _eventAggregator = eventAggregator;
             _cashRegisterRepository = cashRegisterRepository;
         }
 

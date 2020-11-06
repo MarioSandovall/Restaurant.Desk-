@@ -6,7 +6,7 @@ using Service.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace Business.ViewModels
+namespace Business.ViewModels.Main
 {
     public class ViewModelBase : BindableBase
     {

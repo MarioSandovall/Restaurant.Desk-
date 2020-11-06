@@ -1,5 +1,6 @@
 ﻿using Model.Dtos;
 using Model.Models;
+using Service.Extensions;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -7,19 +8,19 @@ using System.Linq;
 
 namespace Service.Utils
 {
-    internal static class PurcheseDocument
+    internal static class PurchaseDocument
     {
         private static BranchOffice _branchOffice;
         private static Restaurant _restaurant;
         private static ICollection<TicketDetailDto> _details;
 
-        public static PrintDocument Generate(ICollection<TicketDetailDto> details, BranchOffice branchOffice, Restaurant restarant)
+        public static PrintDocument Generate(ICollection<TicketDetailDto> details, BranchOffice branchOffice, Restaurant restaurant)
         {
             var pd = new PrintDocument();
-            var ps = new PaperSize() { Width = MaxWidth };
+            var ps = new PaperSize { Width = MaxWidth };
 
             _details = details;
-            _restaurant = restarant;
+            _restaurant = restaurant;
             _branchOffice = branchOffice;
 
             pd.PrintPage -= PdOnPrintPage;
@@ -41,11 +42,11 @@ namespace Service.Utils
                 var space = 2;
                 var firstItem = _details.FirstOrDefault();
 
-                //var logo = _restaurant.Image.ArrayToImage();
-                //var image = logo.ResizeImage(70, 70).ToGrayScale();
+                var logo = _restaurant.Image.ArrayToImage();
+                var image = logo.ResizeImage(70, 70).ToGrayScale();
 
                 g.DrawRectangle(Pens.Black, 0, space, MaxWidth, 1);
-                //g.DrawImage(image, CenterImage(70), space += 5);
+                g.DrawImage(image, CenterImage(70), space += 5);
                 g.DrawString(_restaurant.Name, TitleFont, Sb, new RectangleF(0, space += 75, MaxWidth, TitleSize + 5), CenterFormat);
 
                 g.DrawString(_branchOffice.Name, TextFont, Sb, 0, space += 30);

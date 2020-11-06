@@ -1,6 +1,6 @@
 ﻿using Business.Events.Home;
-using Business.Interfaces;
 using Business.Interfaces.Home;
+using Business.Interfaces.Main;
 using Model.Models;
 using Prism.Commands;
 using Prism.Events;
@@ -76,7 +76,7 @@ namespace Business.ViewModels.Home
             NavCommand = new DelegateCommand(OnSelectLocation);
 
             _eventAggregator.GetEvent<VisibleMenuEvent>().Subscribe(OnVisibleMenu);
-            _eventAggregator.GetEvent<AfterNavigationEvent>().Subscribe(OnAfterNavigationEnvet);
+            _eventAggregator.GetEvent<AfterNavigationEvent>().Subscribe(OnAfterNavigationEvent);
         }
 
 
@@ -108,7 +108,7 @@ namespace Business.ViewModels.Home
             _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(SelectedLocation.Action);
         }
 
-        private void OnAfterNavigationEnvet(AfterNavigationEventArgs args)
+        private void OnAfterNavigationEvent(AfterNavigationEventArgs args)
         {
             CurrentViewModel = args.ViewModel;
             IsHambugerMenuOpen = args.IsHamburgerMenuOpen;

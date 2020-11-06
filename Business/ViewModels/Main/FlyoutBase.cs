@@ -1,10 +1,10 @@
-﻿using Business.Events;
+﻿using Business.Events.Home;
 using Prism.Commands;
 using Prism.Events;
 using Service.Interfaces;
 using System.Windows.Input;
 
-namespace Business.ViewModels
+namespace Business.ViewModels.Main
 {
     public class FlyoutBase : ViewModelBase
     {

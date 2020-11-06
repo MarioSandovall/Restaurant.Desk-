@@ -1,4 +1,4 @@
-﻿using Business.Interfaces;
+﻿using Business.Interfaces.Main;
 using Prism.Events;
 
 namespace Business.Events.Home

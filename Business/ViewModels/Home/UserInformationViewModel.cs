@@ -1,6 +1,6 @@
-﻿using Business.Events;
-using Business.Extensions;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Home;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Microsoft.Win32;
 using Model.Models;
@@ -11,6 +11,7 @@ using Service.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using Service.Extensions;
 
 namespace Business.ViewModels.Home
 {

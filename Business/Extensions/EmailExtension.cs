@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Business.Utilities
+namespace Business.Extensions
 {
-    public static class InputValidation
+    public static class EmailExtension
     {
         public static bool IsEmailValid(this string email)
         {

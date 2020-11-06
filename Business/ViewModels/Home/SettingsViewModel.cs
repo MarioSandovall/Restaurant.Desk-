@@ -1,5 +1,6 @@
-﻿using Business.Events;
+﻿using Business.Events.Home;
 using Business.Interfaces.Home;
+using Business.ViewModels.Main;
 using MahApps.Metro;
 using Model.Models;
 using Prism.Commands;

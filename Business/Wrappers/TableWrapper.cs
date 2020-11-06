@@ -14,7 +14,7 @@ namespace Business.Wrappers
             set => SetValue(value);
         }
 
-        public bool IsBussy
+        public bool IsBusy
         {
             get => GetValue<bool>();
             set => SetValue(value);
@@ -47,7 +47,7 @@ namespace Business.Wrappers
         public void Update(Table table)
         {
             Name = table.Name;
-            IsBussy = table.IsBussy;
+            IsBusy = table.IsBussy;
             Image = table.Image;
         }
     }

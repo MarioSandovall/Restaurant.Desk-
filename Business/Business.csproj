@@ -97,17 +97,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\MoneyConverter.cs" />
-    <Compile Include="Events\AddProductToProductListEvent.cs" />
-    <Compile Include="Events\AfterBranchOfficeSalvedEvent.cs" />
-    <Compile Include="Events\AfterCategorySavedEvent.cs" />
-    <Compile Include="Events\AfterProductSavedEvent.cs" />
-    <Compile Include="Events\AfterRestaurantSavedEvent.cs" />
-    <Compile Include="Events\AfterTableSalvedEvent.cs" />
-    <Compile Include="Events\AfterUserInfoSavedEvent.cs" />
-    <Compile Include="Events\AfterUserSavedEvent.cs" />
-    <Compile Include="Events\CloseApplicationEvent.cs" />
-    <Compile Include="Events\CloseFlyoutEvent.cs" />
-    <Compile Include="Events\CloseOrderDetailEvent.cs" />
+    <Compile Include="Events\Register\AddProductToProductListEvent.cs" />
+    <Compile Include="Events\Administrator\AfterBranchOfficeSalvedEvent.cs" />
+    <Compile Include="Events\Administrator\AfterCategorySavedEvent.cs" />
+    <Compile Include="Events\Administrator\AfterProductSavedEvent.cs" />
+    <Compile Include="Events\Administrator\AfterRestaurantSavedEvent.cs" />
+    <Compile Include="Events\Administrator\AfterTableSalvedEvent.cs" />
+    <Compile Include="Events\Administrator\AfterUserInfoSavedEvent.cs" />
+    <Compile Include="Events\Administrator\AfterUserSavedEvent.cs" />
+    <Compile Include="Events\Home\CloseApplicationEvent.cs" />
+    <Compile Include="Events\Home\CloseFlyoutEvent.cs" />
+    <Compile Include="Events\Administrator\CloseOrderDetailEvent.cs" />
     <Compile Include="Events\Home\AfterNavigationEvent.cs" />
     <Compile Include="Events\Home\BeforeNavigationEvent.cs" />
     <Compile Include="Events\Home\VisibleMenuEvent.cs" />
@@ -115,10 +115,9 @@
     <Compile Include="Events\Register\AfterOrderChargedEvent.cs" />
     <Compile Include="Events\Register\AfterOrderCreatedEvent.cs" />
     <Compile Include="Events\Register\SelectOrderEvent.cs" />
-    <Compile Include="Events\RemoveOrderEvent.cs" />
-    <Compile Include="Events\UpdateAccentColorEvent.cs" />
-    <Compile Include="Events\UpdateProductTotalEvent.cs" />
-    <Compile Include="Extensions\ImageExtension.cs" />
+    <Compile Include="Events\Register\RemoveOrderEvent.cs" />
+    <Compile Include="Events\Home\UpdateAccentColorEvent.cs" />
+    <Compile Include="Events\Administrator\UpdateProductTotalEvent.cs" />
     <Compile Include="Interfaces\Administrator\IAdminPanel.cs" />
     <Compile Include="Interfaces\Administrator\IAdminViewModel.cs" />
     <Compile Include="Interfaces\Administrator\ICategoryDetailViewModel.cs" />
@@ -137,7 +136,7 @@
     <Compile Include="Interfaces\Home\ISettingsViewModel.cs" />
     <Compile Include="Interfaces\Home\IUserInformationViewModel.cs" />
     <Compile Include="Interfaces\Administrator\IProductViewModel.cs" />
-    <Compile Include="Interfaces\IViewModelBase.cs" />
+    <Compile Include="Interfaces\Main\IViewModelBase.cs" />
     <Compile Include="Interfaces\Login\ILoginViewModel.cs" />
     <Compile Include="Interfaces\Login\IOfficeChooserViewModel.cs" />
     <Compile Include="Interfaces\Login\ISoftwareUpdateViewModel.cs" />
@@ -154,11 +153,11 @@
     <Compile Include="Interfaces\Register\IPrintTicketViewModel.cs" />
     <Compile Include="Interfaces\Register\IProductListViewModel.cs" />
     <Compile Include="Interfaces\Register\ISearchProductViewModel.cs" />
-    <Compile Include="Utilities\Operations\CashRegisterOperation.cs" />
+    <Compile Include="Utils\Operations\CashRegisterOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
-    <Compile Include="Utilities\InputValidation.cs" />
-    <Compile Include="Utilities\Network.cs" />
+    <Compile Include="Extensions\EmailExtension.cs" />
+    <Compile Include="Utils\NetworkHelper.cs" />
     <Compile Include="ViewModels\Administrator\AdminViewModel.cs" />
     <Compile Include="ViewModels\Administrator\CategoryDetailViewModel.cs" />
     <Compile Include="ViewModels\Administrator\CategoryViewModel.cs" />
@@ -167,11 +166,11 @@
     <Compile Include="ViewModels\Administrator\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\Administrator\ProductViewModel.cs" />
     <Compile Include="ViewModels\Administrator\RestaurantViewModel.cs" />
-    <Compile Include="ViewModels\Administrator\TableDetailViewMoldel.cs" />
+    <Compile Include="ViewModels\Administrator\TableDetailViewModel.cs" />
     <Compile Include="ViewModels\Administrator\TableViewModel.cs" />
     <Compile Include="ViewModels\Administrator\UserDetailViewModel.cs" />
     <Compile Include="ViewModels\Administrator\UserViewModel.cs" />
-    <Compile Include="ViewModels\FlyoutBase.cs" />
+    <Compile Include="ViewModels\Main\FlyoutBase.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Home\NavigationItemViewModel.cs" />
     <Compile Include="ViewModels\Home\NavigationViewModel.cs" />
@@ -182,8 +181,8 @@
     <Compile Include="ViewModels\Login\OfficeChooserViewModel.cs" />
     <Compile Include="ViewModels\Login\SoftwareUpdateViewModel.cs" />
     <Compile Include="ViewModels\Login\StartUpViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\ModalBase.cs" />
+    <Compile Include="ViewModels\Main\MainViewModel.cs" />
+    <Compile Include="ViewModels\Main\ModalBase.cs" />
     <Compile Include="ViewModels\Register\CashRegisterInfoViewModel.cs" />
     <Compile Include="ViewModels\Register\CashRegisterViewModel.cs" />
     <Compile Include="ViewModels\Register\ChargeViewModel.cs" />
@@ -195,7 +194,7 @@
     <Compile Include="ViewModels\Register\PrintTicketViewModel.cs" />
     <Compile Include="ViewModels\Register\ProductListViewModel.cs" />
     <Compile Include="ViewModels\Register\SearchProductViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\Main\ViewModelBase.cs" />
     <Compile Include="Wrappers\BranchOfficeWrapper.cs" />
     <Compile Include="Wrappers\CategoryWrapper.cs" />
     <Compile Include="Wrappers\ModelWrapper.cs" />
@@ -225,5 +224,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

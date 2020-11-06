@@ -1,4 +1,4 @@
-﻿using Business.Events;
+﻿using Business.Events.Administrator;
 using Model.Models;
 using Prism.Events;
 

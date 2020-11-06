@@ -1,6 +1,7 @@
 ﻿using Business.Events.Home;
 using Business.Events.Login;
 using Business.Interfaces.Login;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Model.Utils;
 using Prism.Commands;
@@ -82,17 +83,17 @@ namespace Business.ViewModels.Login
                     return;
                 }
 
-                var httpReponse = await ActionAsync(async () => await _userRepository.LoginAsync(User.Id, password?.Password));
-                if (httpReponse.IsSuccess)
+                var httpResponse = await ActionAsync(async () => await _userRepository.LoginAsync(User.Id, password?.Password));
+                if (httpResponse.IsSuccess)
                 {
-                    _dataService.SetUser(httpReponse.Value.User);
-                    _dataService.SetRestaurant(httpReponse.Value.Restaurant);
-                    _dataService.SetBranchOffices(httpReponse.Value.BranchOffices);
+                    _dataService.SetUser(httpResponse.Value.User);
+                    _dataService.SetRestaurant(httpResponse.Value.Restaurant);
+                    _dataService.SetBranchOffices(httpResponse.Value.BranchOffices);
                     _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToHome);
                 }
                 else
                 {
-                    await _dialogService.ShowMessageAsync(httpReponse.Message, httpReponse.Title);
+                    await _dialogService.ShowMessageAsync(httpResponse.Message, httpResponse.Title);
                 }
             }
             catch (Exception ex)

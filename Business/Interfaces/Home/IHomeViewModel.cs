@@ -1,4 +1,6 @@
-﻿namespace Business.Interfaces.Home
+﻿using Business.Interfaces.Main;
+
+namespace Business.Interfaces.Home
 {
     public interface IHomeViewModel : IViewModelBase
     {

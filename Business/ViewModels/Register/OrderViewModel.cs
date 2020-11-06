@@ -1,6 +1,7 @@
-﻿using Business.Events;
+﻿using Business.Events.Administrator;
 using Business.Events.Register;
 using Business.Interfaces.Register;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Model.Models;
 using Prism.Commands;
@@ -41,7 +42,7 @@ namespace Business.ViewModels.Register
             IDialogService dialogService,
             IEventAggregator eventAggregator,
             IProductListViewModel productListViewModel,
-            ISearchProductViewModel seachProductViewModel,
+            ISearchProductViewModel searchProductViewModel,
             IOrderRepository orderRepository)
             : base(dialogService,eventAggregator)
         {
@@ -51,7 +52,7 @@ namespace Business.ViewModels.Register
             _eventAggregator = eventAggregator;
             _orderRepository = orderRepository;
 
-            SearchProductViewModel = seachProductViewModel;
+            SearchProductViewModel = searchProductViewModel;
             ProductListViewModel = productListViewModel;
         }
 

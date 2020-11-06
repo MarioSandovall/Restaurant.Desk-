@@ -1,11 +1,9 @@
-﻿using Business.Events;
-using Business.Events.Home;
-using Business.Interfaces;
+﻿using Business.Events.Home;
 using Business.Interfaces.Administrator;
 using Business.Interfaces.Home;
 using Business.Interfaces.Login;
+using Business.Interfaces.Main;
 using Business.Interfaces.Register;
-using Business.Utilities;
 using MahApps.Metro.Controls.Dialogs;
 using Model.Utils;
 using Prism.Events;
@@ -14,8 +12,9 @@ using Service.Interfaces;
 using System;
 using System.Net.NetworkInformation;
 using System.Windows;
+using Business.Utils;
 
-namespace Business.ViewModels
+namespace Business.ViewModels.Main
 {
     public class MainViewModel : BindableBase
     {
@@ -64,7 +63,7 @@ namespace Business.ViewModels
 
         #endregion
 
-        private IViewModelBase _currenViewModel;
+        private IViewModelBase _currentViewModel;
         private readonly ILogService _logService;
         private readonly IDialogService _dialogService;
         private readonly IConfigService _configService;
@@ -110,7 +109,7 @@ namespace Business.ViewModels
             _eventAggregator.GetEvent<BeforeNavigationEvent>().Subscribe(OnBeforeNavigation);
 
             IsNotNetWorkAvailable = false;
-            NetworkChange.NetworkAddressChanged += (s, a) => Application.Current.Dispatcher.Invoke(() => IsNotNetWorkAvailable = !Network.IsAvailable);
+            NetworkChange.NetworkAddressChanged += (s, a) => Application.Current.Dispatcher.Invoke(() => IsNotNetWorkAvailable = !NetworkHelper.IsAvailable);
         }
 
         public void Load()
@@ -136,28 +135,28 @@ namespace Business.ViewModels
             {
                 case MenuAction.GoToStartUp:
                     isMenuVisible = false;
-                    _currenViewModel = StartUpViewModel;
+                    _currentViewModel = StartUpViewModel;
                     StartUpViewModel.Load();
                     break;
                 case MenuAction.GoToEmailLogin:
                     isMenuVisible = false;
-                    _currenViewModel = EmailLoginViewModel;
+                    _currentViewModel = EmailLoginViewModel;
                     break;
                 case MenuAction.GoToLogin:
                     isMenuVisible = false;
-                    _currenViewModel = LoginViewModel;
+                    _currentViewModel = LoginViewModel;
                     break;
                 case MenuAction.GoToHome:
-                    _currenViewModel = HomeViewModel;
+                    _currentViewModel = HomeViewModel;
                     NavigationViewModel.Load();
                     HomeViewModel.Load();
                     break;
                 case MenuAction.GoToCashRegister:
-                    _currenViewModel = CashRegisterViewModel;
+                    _currentViewModel = CashRegisterViewModel;
                     CashRegisterViewModel.Load();
                     break;
                 case MenuAction.GoToAdmin:
-                    _currenViewModel = AdminViewModel;
+                    _currentViewModel = AdminViewModel;
                     AdminViewModel.Load();
                     break;
                 case MenuAction.GoToSettings:
@@ -181,7 +180,7 @@ namespace Business.ViewModels
                 {
                     IsMenuVisible = isMenuVisible,
                     IsHamburgerMenuOpen = false,
-                    ViewModel = _currenViewModel
+                    ViewModel = _currentViewModel
                 });
         }
 
@@ -200,7 +199,7 @@ namespace Business.ViewModels
 
         public async void CloseApplication()
         {
-            var result = await _dialogService.AskQuestionAsync("¿Está seguro de querer salir de la aplicación?");
+            var result = await _dialogService.AskQuestionAsync("Are you sure you want to close the application?");
             if (result == MessageDialogResult.Negative) return;
             Application.Current?.Shutdown();
         }

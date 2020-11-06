@@ -1,11 +1,12 @@
 ﻿using Autofac;
 using Business.Startup;
-using Business.ViewModels;
+using Business.ViewModels.Main;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using Wpf.Views;
 
 namespace Wpf
 {
@@ -21,7 +22,7 @@ namespace Wpf
         {
             if (!Mutex.WaitOne(TimeSpan.Zero, true))
             {
-                MessageBox.Show("La aplicación ya esta corrido..");
+                MessageBox.Show("The application is already running");
                 Current.Shutdown();
             }
 

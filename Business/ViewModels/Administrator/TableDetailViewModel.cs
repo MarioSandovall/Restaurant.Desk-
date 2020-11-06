@@ -1,6 +1,6 @@
-﻿using Business.Events;
-using Business.Extensions;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Microsoft.Win32;
 using Model.Models;
@@ -13,10 +13,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using Service.Extensions;
+using Service.Utils;
 
 namespace Business.ViewModels.Administrator
 {
-    public class TableDetailViewMoldel : ModalBase, ITableDetailViewMoldel
+    public class TableDetailViewModel : ModalBase, ITableDetailViewMoldel
     {
         #region Properties
 
@@ -43,7 +45,7 @@ namespace Business.ViewModels.Administrator
         private readonly IEventAggregator _eventAggregator;
         private readonly ITableRepository _tableRepository;
 
-        public TableDetailViewMoldel(
+        public TableDetailViewModel(
             ILogService logService,
             IDialogService dialogService,
             IEventAggregator eventAggregator,
@@ -99,7 +101,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnDeleteImageExecute()
         {
-            Table.Image = ImageExtension.TableImg.ImgUrlToByteArray();
+            Table.Image = RestaurantImages.Table.ImgUrlToByteArray();
         }
 
         private void OnLoadImageExecute()
