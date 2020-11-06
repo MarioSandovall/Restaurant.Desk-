@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="Wpf.Views.Administrator.TableDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <simpleChildWindow:ChildWindow
+            AllowMove="True"
+            CloseByEscape="False"
+            ShowCloseButton="False"
+            ChildWindowWidth="700"
+            IsModal="True"
+            GlowBrush="{DynamicResource AccentBaseColorBrush}"
+            TitleBarBackground="{DynamicResource  SubMenuBackgroundBrush}"
+            IsOpen="{Binding IsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <simpleChildWindow:ChildWindow.OverlayBrush>
+                <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}"></SolidColorBrush>
+            </simpleChildWindow:ChildWindow.OverlayBrush>
+
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Mesa" 
+                          Grid.Column="0" 
+                          Grid.Row="0" 
+                          Padding="0"
+                          Margin="0,10">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border BorderBrush="{DynamicResource AccentBaseColorBrush }"
+                                    BorderThickness="1" 
+                                    Width="250"
+                                    Margin="10"
+                                    Height="200">
+                                <Grid>
+                                    <Grid Background="{DynamicResource FlatButtonPressedBackgroundBrush}"/>
+                                    <Image Source="{Binding Table.Image}" Stretch="Fill" />
+                                </Grid>
+                            </Border>
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Style="{StaticResource ButtonStyle}"  Command="{Binding DeleteImageCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconModern Kind="Delete" VerticalAlignment="Center"/>
+                                        <Label Content="Eliminar"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <Button Style="{StaticResource ButtonStyle}"  Command="{Binding LoadImageCommand}">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <iconPacks:PackIconModern Kind="Image" VerticalAlignment="Center"/>
+                                        <Label Content="Seleccionar"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Column="1" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Nombre" Margin="10"  Style="{StaticResource TextBlockStyle}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Table.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Sucursales" Margin="10"  Style="{StaticResource TextBlockStyle}"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Margin="10" ItemsSource="{Binding Offices}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"
+                                      SelectedValue="{Binding Table.BranchOfficeId, Mode=TwoWay}"/>
+                        </Grid>
+
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+                    <Button Style="{StaticResource ButtonStyle}"  Command="{Binding CloseCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Kind="Close" VerticalAlignment="Center" />
+                            <Label Content="Cerrar" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource ButtonStyle}"  Command="{Binding OkCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Kind="Save" VerticalAlignment="Center" />
+                            <Label Content="Guardar"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+
+        </simpleChildWindow:ChildWindow>
+    </Grid>
+</UserControl>

@@ -1,0 +1,151 @@
+﻿<mah:MetroWindow
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf"
+        xmlns:loginView="clr-namespace:Wpf.Views.Login"
+        xmlns:loginViewModel="clr-namespace:Business.ViewModels.Login;assembly=Business"
+        xmlns:homeView="clr-namespace:Wpf.Views.Home"
+        xmlns:homeViewModel="clr-namespace:Business.ViewModels.Home;assembly=Business"
+        xmlns:administratorView="clr-namespace:Wpf.Views.Administrator"
+        xmlns:administratorViewModel="clr-namespace:Business.ViewModels.Administrator;assembly=Business"
+        xmlns:registerView="clr-namespace:Wpf.Views.Register"
+        xmlns:registerViewModel="clr-namespace:Business.ViewModels.Register;assembly=Business"
+        xmlns:mahAppsExtensions="clr-namespace:Wpf.Resources.MahAppsExtensions"
+        xmlns:wpf="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource AccentBaseColorBrush}"       
+        Style="{DynamicResource MyCleanWindowStyle}"
+        MinHeight="750" 
+        Height="750"
+        MinWidth="1170"
+        Width="1170"
+        ShowCloseButton="true"
+        Focusable="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type loginViewModel:LoginViewModel}">
+                <loginView:LoginView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type loginViewModel:EmailLoginViewModel}">
+                <loginView:EmailLoginView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type loginViewModel:StartUpViewModel}">
+                <loginView:StartUpView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type homeViewModel:HomeViewModel}">
+                <homeView:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:AdminViewModel}">
+                <administratorView:AdminView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:ProductViewModel}">
+                <administratorView:ProductView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:CategoryViewModel}">
+                <administratorView:CategoryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:UserViewModel}">
+                <administratorView:UserView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:TableViewModel}">
+                <administratorView:TableView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:RestaurantViewModel}">
+                <administratorView:RestaurantView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type administratorViewModel:OfficeViewModel}">
+                <administratorView:OfficeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type registerViewModel:OrderDetailViewModel}">
+                <registerView:OrderDetailView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type registerViewModel:CashRegisterViewModel}">
+                <registerView:CashRegisterView/>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout Position="Right" 
+                        Width="300"
+                        Header="Configuraciones"
+                        AreAnimationsEnabled="True"
+                        IsModal="True"
+                        IsPinned="False"
+                        BorderBrush="{DynamicResource AccentBaseColorBrush}"
+                        BorderThickness="1,0,0,0"
+                        IsOpen="{Binding IsSettingsFlyoutOpen}">
+                <homeView:SettingsView DataContext="{Binding SettingsViewModel}"/>
+            </mah:Flyout>
+
+            <mah:Flyout Position="Right" 
+                        Width="300"
+                        Header="Información del Usuario"
+                        AreAnimationsEnabled="True"
+                        IsModal="True"
+                        IsPinned="False"
+                        BorderBrush="{DynamicResource AccentBaseColorBrush}"
+                        BorderThickness="1,0,0,0"
+                        IsOpen="{Binding IsUserInfoFlyoutOpen}">
+                <homeView:UserInformationView DataContext="{Binding UserInformationViewModel}"/>
+            </mah:Flyout>
+
+            <mahAppsExtensions:LoadingFlyout
+                Style="{StaticResource RightLoadingFlyoutStyle}"
+                Position="Right"
+                IsOpen="{Binding IsNotNetWorkAvailable, UpdateSourceTrigger=PropertyChanged}">
+                <Border BorderThickness="1,1,0,1"  Background="Red" BorderBrush="{DynamicResource AccentBaseColorBrush}">
+                    <Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <wpf:LoadingIndicator   Margin="10,-20,29,0" Style="{StaticResource LoadingIndicatorArcsRingStyle}"  >
+                                <wpf:LoadingIndicator.RenderTransform>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                </wpf:LoadingIndicator.RenderTransform>
+                            </wpf:LoadingIndicator>
+
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="No hay Acceso a la red" FontSize="25" TextAlignment="Center"/>
+                                <TextBlock Text="Comprueba tu conexión a la red por favor" FontSize="16" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </mahAppsExtensions:LoadingFlyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+
+
+    <Grid>
+        <homeView:NavigationView DataContext="{Binding NavigationViewModel}"/>
+        <loginView:SoftwareUpdateView DataContext="{Binding SoftwareUpdateViewModel}" />
+    </Grid>
+</mah:MetroWindow>

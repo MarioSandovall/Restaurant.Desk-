@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="Wpf.Views.Register.OrderDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Business.Converters;assembly=Business"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:MoneyConverter x:Key="MoneyConverter" />
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource FlatButtonPressedBackgroundBrush}" Margin="1,0">
+        <Grid Margin="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" >
+
+                <Grid Margin="5" DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Ticket:" Margin="0,0,5,0" FontWeight="Bold" FontSize="12"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Order.OrderNumber}" FontSize="12"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Nombre:" Margin="0,0,5,0" FontWeight="Bold" FontSize="12" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Order.Name}" FontSize="12" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Fecha:" Margin="0,0,5,0"  FontWeight="Bold" FontSize="12" />
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Order.StartDate, StringFormat=dd/MM/yyyy HH:mm}" FontSize="12"/>
+
+                </Grid>
+
+                <Button Style="{StaticResource ButtonStyle}" 
+                        DockPanel.Dock="Right"  
+                        HorizontalAlignment="Right"
+                        Command="{Binding ChargeCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconModern Kind="ArrowRight" VerticalAlignment="Center" />
+                        <Label Content="Cobrar"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Style="{StaticResource ButtonStyle}" 
+                        DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Command="{Binding CancelCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconModern Kind="Cancel" VerticalAlignment="Center" />
+                        <Label Content="Cancelar"/>
+                    </StackPanel>
+                </Button>
+                
+                <Button Style="{StaticResource ButtonStyle}" 
+                        DockPanel.Dock="Right"
+                        HorizontalAlignment="Right"
+                        Command="{Binding EditCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconModern Kind="Edit" VerticalAlignment="Center" />
+                        <Label Content="Editar"/>
+                    </StackPanel>
+                </Button>
+
+            </DockPanel>
+
+            <ProgressBar Grid.Row="1" Margin="0,5"  IsIndeterminate="{Binding IsBusy}" Value="100" />
+
+            <DataGrid Grid.Row="2"
+                      Margin="0,-4"
+                      FontSize="15"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      AutoGenerateColumns="False"
+                      HorizontalAlignment="Center"
+                      VerticalScrollBarVisibility="Auto"
+                      ItemsSource="{Binding Details}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header=" " Width="70" CanUserResize="False" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center" Margin="3">
+                                    <Ellipse Width="30" Height="30" Fill="{DynamicResource FlatButtonPressedBackgroundBrush}" />
+                                    <Ellipse Width="30" Height="30">
+                                        <Ellipse.Fill>
+                                            <ImageBrush  ImageSource="{Binding ProductImage}" Stretch="UniformToFill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Producto" Width="*" Binding="{Binding ProductName}"/>
+                    <DataGridTextColumn Header="Precio" Width="*" CanUserResize="False"  Binding="{Binding Price, StringFormat={}{0:C2}}"/>
+                    <DataGridTextColumn Header="Cantidad" Width="*" CanUserResize="False"  Binding="{Binding Quantity}"  />
+                    <DataGridTextColumn Header="Total" Width="*" CanUserResize="False" Binding="{Binding Total, StringFormat={}{0:C2}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StatusBar Grid.Row="3" HorizontalAlignment="Right">
+                <TextBlock Margin="10, 15"  FontSize="20" Text="Total:"/>
+                <TextBlock FontSize="40" Text="{Binding Total, Converter={StaticResource MoneyConverter}}"/>
+            </StatusBar>
+        </Grid>
+
+    </Grid>
+</UserControl>

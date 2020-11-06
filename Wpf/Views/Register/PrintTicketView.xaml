@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Wpf.Views.Register.PrintTicketView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <simpleChildWindow:ChildWindow
+                AllowMove="False"
+                CloseByEscape="False"
+                ShowCloseButton="False"
+                ChildWindowWidth="400"
+                IsModal="True"
+                ShowTitleBar="False"
+                GlowBrush="{DynamicResource AccentBaseColorBrush}"
+                TitleBarBackground="{DynamicResource  SubMenuBackgroundBrush}"
+                IsOpen="{Binding IsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" >
+
+            <simpleChildWindow:ChildWindow.OverlayBrush>
+                <SolidColorBrush Opacity="0.8" Color="{StaticResource Gray2}"></SolidColorBrush>
+            </simpleChildWindow:ChildWindow.OverlayBrush>
+
+            <StackPanel Margin="10" HorizontalAlignment="Center">
+
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <iconPacks:PackIconModern Width="30" Height="30"  Kind="PageText" VerticalAlignment="Center" />
+                    <TextBlock Text="Imprimir Ticket" Style="{StaticResource AdminTileStyle}"/>
+                </StackPanel>
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Ticket" Margin="10"  Style="{StaticResource TextBlockStyle}"/>
+                    <mah:NumericUpDown Grid.Column="1" Minimum="0" Interval="1"   NumericInputMode="Decimal" Value="{Binding OrderNumber, UpdateSourceTrigger=PropertyChanged}" Margin="10">
+                        <mah:NumericUpDown.InputBindings>
+                            <KeyBinding Command="{Binding OkCommand}"  Key="Enter"/>
+                        </mah:NumericUpDown.InputBindings>
+                    </mah:NumericUpDown>
+                </Grid>
+
+                <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+
+                    <Button Style="{StaticResource ButtonStyle}"  Command="{Binding CloseCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Kind="Cancel" VerticalAlignment="Center" />
+                            <Label Content="Cancelar"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource ButtonStyle}"  Command="{Binding OkCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconModern Kind="Printer" VerticalAlignment="Center" />
+                            <Label Content="Imprimir"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+            </StackPanel>
+
+        </simpleChildWindow:ChildWindow>
+    </Grid>
+</UserControl>
