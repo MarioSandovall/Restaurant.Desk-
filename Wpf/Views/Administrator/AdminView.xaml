@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Wpf.Views.Administrator.AdminView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:administrator="clr-namespace:Wpf.Views.Administrator"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="MenuItemTemplate">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Height="40" >
+                    <iconPacks:PackIconModern Kind="Box" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock  Text="{Binding Name}" VerticalAlignment="Center"  FontSize="15" Margin="5,0" />
+                </StackPanel>
+                <Separator/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Source="../../Resources/Images/Menu/Admin.png" Width="60" Height="60"/>
+                <TextBlock Style="{StaticResource TitleStyle}" Text="Administrador" />
+            </StackPanel>
+            
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Background="{DynamicResource FlatButtonPressedBackgroundBrush}">
+                    <ListBox ItemsSource="{Binding Menu}"
+                             SelectedItem="{Binding SelectedOption}"
+                             ItemContainerStyle="{StaticResource ListBoxStyle}"
+                             ItemTemplate="{StaticResource MenuItemTemplate}" />
+                </StackPanel>
+
+                <ContentControl Grid.Column="1" Margin="2,-5,0,0" Content="{Binding CurrentViewModel}"/>
+            </Grid>
+        </Grid>
+
+        <!--Modal Windows-->
+        <administrator:CategoryDetailView  DataContext="{Binding CategoryDetailViewModel}"/>
+        <administrator:ProductDetailView  DataContext="{Binding ProductDetailViewModel}"/>
+        <administrator:UserDetailView  DataContext="{Binding UserDetailViewModel}"/>
+        <administrator:TableDetailView  DataContext="{Binding TableDetailViewMoldel}"/>
+        <administrator:OfficeDetailView  DataContext="{Binding OfficeDetailViewModel}"/>
+
+    </Grid>
+
+
+</UserControl>

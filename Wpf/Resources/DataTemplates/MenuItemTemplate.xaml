@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+    
+    <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem  }">
+        <Grid Height="48" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Image  Grid.Column="0"
+                    Margin="2"                      
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Stretch="Uniform"
+                    Source="{Binding Image}"/>
+
+            <TextBlock  Grid.Column="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        FontSize="14"
+                        Foreground="White"
+                        Text="{Binding Name}" />
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Wpf.Views.Home.UserInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Wpf.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="300">
+    <Grid Margin="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0"  Margin="10">
+            <Border BorderBrush="{DynamicResource AccentBaseColorBrush}" BorderThickness="1" CornerRadius="100" Height="130" Width="130"  >
+                <Ellipse>
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding User.Image, Mode=OneWay}" Stretch="UniformToFill"  />
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <TextBlock HorizontalAlignment="Center" FontSize="25" TextWrapping="Wrap" TextAlignment="Center" Margin="5" Text="{Binding User.FullName}"></TextBlock>
+        </StackPanel>
+
+        <Grid Grid.Row="1" DockPanel.Dock="Top" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0"  Grid.Row="0" Margin="5,15" FontSize="15" Text="Imagen : "/>
+            <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,5">
+                <Button Style="{StaticResource ButtonStyle}"  HorizontalAlignment="Left" Command="{Binding LoadImageCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <iconPacks:PackIconModern Kind="Image" Margin="3"/>
+                        <Label Content="Seleccionar"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
+            <TextBlock Grid.Column="0"  Grid.Row="1" Margin="5,10" FontSize="15" Text="Nombre: "/>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="5,10"  Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <TextBlock Grid.Column="0"  Grid.Row="2" Margin="5,10" Text="Apellido: " FontSize="15"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="5,10"  Text="{Binding User.LastName , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Grid>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+
+            <Button Style="{StaticResource ButtonStyle}"  HorizontalAlignment="Left" Command="{Binding CloseCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <iconPacks:PackIconModern Kind="Close" Margin="3"/>
+                    <Label Content="Cerrar"/>
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource ButtonStyle}"  HorizontalAlignment="Left" Command="{Binding SaveCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <iconPacks:PackIconModern Kind="Save" Margin="3"/>
+                    <Label Content="Guardar"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

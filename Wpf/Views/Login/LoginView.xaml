@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Wpf.Views.Login.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1170">
+
+    <StackPanel HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Width="700" Height="400"
+                FocusManager.FocusedElement="{Binding ElementName=PasswordBox}"
+                Background="{DynamicResource FlatButtonPressedBackgroundBrush}">
+
+        <StackPanel Margin="10,60,10,10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="{DynamicResource AccentBaseColorBrush }"
+                    Background="{DynamicResource AccentBaseColorBrush}"
+                    BorderThickness="1"
+                    CornerRadius="100" Width="100" Height="100">
+                <Ellipse>
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding User.Image}" Stretch="UniformToFill" />
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Border>
+            <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding User.Name}"/>
+        </StackPanel>
+
+        <mah:MetroHeader Header="Contraseña"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <mah:MetroHeader.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Foreground="{DynamicResource FlyoutForegroundBrush}" Kind="TextboxPassword" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center" FontSize="15" Foreground="{DynamicResource FlyoutForegroundBrush}" Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </mah:MetroHeader.HeaderTemplate>
+            <PasswordBox x:Name="PasswordBox" MaxWidth="250" Width="250" FontSize="15"
+                         mah:TextBoxHelper.ClearTextButton="True" Height="30"
+                         Style="{StaticResource MetroButtonRevealedPasswordBox}" >
+                <PasswordBox.InputBindings>
+                    <KeyBinding Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=PasswordBox}" Key="Enter"/>
+                </PasswordBox.InputBindings>
+            </PasswordBox>
+        </mah:MetroHeader>
+
+        <StackPanel  Margin="10" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+            <Button Style="{StaticResource ButtonStyle}" Command="{Binding ReturnCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial VerticalAlignment="Center"  Kind="KeyboardReturn" />
+                    <Label Content="Regresar" />
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource ButtonStyle}" 
+                    Command="{Binding LoginCommand}" 
+                    CommandParameter="{Binding ElementName=PasswordBox}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial VerticalAlignment="Center"  Kind="ArrowRightThick" />
+                    <Label Content="Entrar" />
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+
+    </StackPanel>
+
+</UserControl>
