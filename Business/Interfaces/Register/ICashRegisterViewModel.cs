@@ -1,4 +1,6 @@
-﻿namespace Business.Interfaces.Register
+﻿using Business.Interfaces.Main;
+
+namespace Business.Interfaces.Register
 {
     public interface ICashRegisterViewModel : IViewModelBase
     {

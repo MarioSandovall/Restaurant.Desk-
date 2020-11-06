@@ -1,4 +1,6 @@
-﻿namespace Business.Interfaces.Login
+﻿using Business.Interfaces.Main;
+
+namespace Business.Interfaces.Login
 {
     public interface IStartUpViewModel : IViewModelBase
     {

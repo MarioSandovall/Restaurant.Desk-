@@ -1,6 +1,6 @@
-﻿using Business.Events;
-using Business.Extensions;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Microsoft.Win32;
 using Model.Models;
@@ -14,6 +14,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Service.Extensions;
+using Service.Utils;
 
 namespace Business.ViewModels.Administrator
 {
@@ -123,7 +125,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnDeleteImageExecute()
         {
-            User.Image = ImageExtension.ProfileImg.ImgUrlToByteArray();
+            User.Image = RestaurantImages.Profile.ImgUrlToByteArray();
         }
 
         protected override async void OnOkExecute()

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 
-namespace Business.Utilities
+namespace Business.Utils
 {
-    internal static class Network
+    internal static class NetworkHelper
     {
         public static bool IsAvailable
         {

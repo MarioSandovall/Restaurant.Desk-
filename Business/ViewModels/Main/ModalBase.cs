@@ -4,7 +4,7 @@ using Prism.Events;
 using Service.Interfaces;
 using System.Windows.Input;
 
-namespace Business.ViewModels
+namespace Business.ViewModels.Main
 {
     public abstract class ModalBase : ViewModelBase
     {

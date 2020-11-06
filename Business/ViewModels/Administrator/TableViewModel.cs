@@ -1,5 +1,6 @@
-﻿using Business.Events;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using MahApps.Metro.Controls.Dialogs;
 using Model.Models;
@@ -40,21 +41,21 @@ namespace Business.ViewModels.Administrator
         private readonly IDataService _dataService;
         private readonly IDialogService _dialogService;
         private readonly ITableRepository _tableRepository;
-        private readonly ITableDetailViewMoldel _tableDetailViewMoldel;
+        private readonly ITableDetailViewMoldel _tableDetailViewModel;
         public TableViewModel(
             ILogService logService,
             IDataService dataService,
             IDialogService dialogService,
             ITableRepository tableRepository,
             IEventAggregator eventAggregator,
-            ITableDetailViewMoldel tableDetailViewMoldel)
+            ITableDetailViewMoldel tableDetailViewModel)
             : base(dialogService)
         {
             _logService = logService;
             _dataService = dataService;
             _dialogService = dialogService;
             _tableRepository = tableRepository;
-            _tableDetailViewMoldel = tableDetailViewMoldel;
+            _tableDetailViewModel = tableDetailViewModel;
 
             _offices = new List<BranchOffice>();
 
@@ -72,8 +73,8 @@ namespace Business.ViewModels.Administrator
         {
             try
             {
-                var restautantId = _dataService.Restaurant.Id;
-                var httpResponse = await ActionAsync(async () => await _tableRepository.GetTablesAsync(restautantId));
+                var restaurantId = _dataService.Restaurant.Id;
+                var httpResponse = await ActionAsync(async () => await _tableRepository.GetTablesAsync(restaurantId));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)
@@ -106,7 +107,7 @@ namespace Business.ViewModels.Administrator
         private void OnUpdateTableExecute(TableWrapper table)
         {
             if (table == null) return;
-            _tableDetailViewMoldel.Open(table.Model, _offices);
+            _tableDetailViewModel.Open(table.Model, _offices);
         }
 
         private async void OnRemoveTableExecute(int? id)
@@ -137,7 +138,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnNewTableExecute()
         {
-            _tableDetailViewMoldel.Open(new Table(), _offices);
+            _tableDetailViewModel.Open(new Table(), _offices);
         }
 
         private void OnAfterTableSalved(Table t)

@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces.Register;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Model.Models;
 using Prism.Events;

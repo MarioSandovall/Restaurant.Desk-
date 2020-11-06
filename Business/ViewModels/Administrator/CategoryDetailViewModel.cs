@@ -1,13 +1,15 @@
-﻿using Business.Events;
-using Business.Extensions;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Microsoft.Win32;
 using Model.Models;
 using Prism.Commands;
 using Prism.Events;
 using Repository.Interfaces;
+using Service.Extensions;
 using Service.Interfaces;
+using Service.Utils;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -82,7 +84,7 @@ namespace Business.ViewModels.Administrator
             Category.Name = model.Name;
             Category.Description = model.Description;
             Category.RestaurantId = _dataService.Restaurant.Id;
-            Category.Image = model.Image ?? ImageExtension.CategoryImg.ImgUrlToByteArray();
+            Category.Image = model.Image ?? RestaurantImages.Category.ImgUrlToByteArray();
 
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
@@ -111,7 +113,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnDeleteImageExecute()
         {
-            Category.Image = ImageExtension.CategoryImg.ImgUrlToByteArray();
+            Category.Image = RestaurantImages.Category.ImgUrlToByteArray();
         }
 
         protected override async void OnOkExecute()

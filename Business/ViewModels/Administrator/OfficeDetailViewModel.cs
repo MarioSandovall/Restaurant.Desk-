@@ -1,5 +1,6 @@
-﻿using Business.Events;
+﻿using Business.Events.Administrator;
 using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Model.Models;
 using Prism.Commands;

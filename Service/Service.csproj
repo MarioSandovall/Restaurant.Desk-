@@ -68,6 +68,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ImageExtension.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
     <Compile Include="Interfaces\IConfigService.cs" />
     <Compile Include="Interfaces\IDataService.cs" />
@@ -87,8 +88,9 @@
     <Compile Include="Services\WebService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="Utils\ConfigHelper.cs" />
+    <Compile Include="Utils\RestaurantImages.cs" />
     <Compile Include="Utils\ObjectHelper.cs" />
-    <Compile Include="Utils\PurcheseDocument.cs" />
+    <Compile Include="Utils\PurchaseDocument.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

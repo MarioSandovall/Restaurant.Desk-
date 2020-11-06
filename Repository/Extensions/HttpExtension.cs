@@ -48,7 +48,7 @@ namespace Repository.Extensions
             switch (response.StatusCode)
             {
                 case HttpStatusCode.BadRequest:
-                    title = "Resturant System";
+                    title = "Restaurant System";
                     message = httpErrorObject.Trim('"', '/');
                     break;
                 case HttpStatusCode.NotFound:
@@ -67,21 +67,21 @@ namespace Repository.Extensions
             return Tuple.Create(title, message);
         }
 
-        public static string ToQueryString<T>(this string url, T myobject)
+        public static string ToQueryString<T>(this string url, T myObject)
         {
-            if (myobject == null) return url;
+            if (myObject == null) return url;
 
-            var propeties = myobject.GetType().GetProperties();
-            if (!propeties.Any()) return url;
+            var properties = myObject.GetType().GetProperties();
+            if (!properties.Any()) return url;
 
             var urlBuilder = new StringBuilder(url);
             urlBuilder.Append("?");
-            var last = propeties.Last();
+            var last = properties.Last();
 
-            foreach (var property in myobject.GetType().GetProperties())
+            foreach (var property in myObject.GetType().GetProperties())
             {
 
-                urlBuilder.Append($"{property.Name}={ property.GetValue(myobject)}");
+                urlBuilder.Append($"{property.Name}={ property.GetValue(myObject)}");
                 if (property.Name != last.Name) urlBuilder.Append("&");
             }
 

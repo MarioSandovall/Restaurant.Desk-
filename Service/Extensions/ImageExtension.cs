@@ -5,8 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-
-namespace Business.Extensions
+namespace Service.Extensions
 {
     public static class ImageExtension
     {
@@ -72,10 +71,5 @@ namespace Business.Extensions
             }
         }
 
-        public const string TableImg = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/Table.png";
-        public const string ProductImg = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/Logo.png";
-        public const string ProfileImg = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/UserProfile.jpg";
-        public const string CategoryImg = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/Category.png";
-        public const string RestaurantLogo = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/Logo.png";
     }
 }

@@ -1,6 +1,6 @@
-﻿using Business.Events;
-using Business.Events.Register;
+﻿using Business.Events.Register;
 using Business.Interfaces.Register;
+using Business.ViewModels.Main;
 using Business.Wrappers;
 using Model.Models;
 using Prism.Commands;
@@ -28,7 +28,7 @@ namespace Business.ViewModels.Register
 
         #region Commands
 
-        public ICommand RefleshCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Business.ViewModels.Register
 
             Orders = new ObservableCollection<OrderWrapper>();
 
-            RefleshCommand = new DelegateCommand(OnRefleshExecute);
+            RefreshCommand = new DelegateCommand(OnRefreshExecute);
 
             eventAggregator.GetEvent<RemoveOrderEvent>().Subscribe(OnRemoveOrder);
             eventAggregator.GetEvent<AfterOrderCreatedEvent>().Subscribe(OnOrderCreated);
@@ -79,24 +79,24 @@ namespace Business.ViewModels.Register
             }
         }
 
-        private async void OnRefleshExecute()
+        private async void OnRefreshExecute()
         {
             try
             {
                 IsBusy = true;
                 var cashRegisterId = _dataService.CashRegister.Id;
-                var httpReponse = await _orderRepository.GetOrdersByCashRegisterId(cashRegisterId);
-                if (httpReponse.IsSuccess)
+                var httpResponse = await _orderRepository.GetOrdersByCashRegisterId(cashRegisterId);
+                if (httpResponse.IsSuccess)
                 {
                     Orders.Clear();
-                    foreach (var order in httpReponse.Value)
+                    foreach (var order in httpResponse.Value)
                     {
                         Orders.Add(new OrderWrapper(order, _eventAggregator));
                     }
                 }
                 else
                 {
-                    await _dialogService.ShowMessageAsync(httpReponse.Message);
+                    await _dialogService.ShowMessageAsync(httpResponse.Message);
                 }
             }
             catch (Exception ex)

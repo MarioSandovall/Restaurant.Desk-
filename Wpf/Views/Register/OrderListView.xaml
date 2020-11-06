@@ -73,7 +73,7 @@
             <TextBlock  Grid.Column="0"  Grid.Row="0" Text="Ordenes" FontSize="16" Margin="5,0" VerticalAlignment="Center"/>
             <Button  Grid.Column="1"  Grid.Row="0"
                      Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40"
-                     Command="{Binding RefleshCommand}"
+                     Command="{Binding RefreshCommand}"
                      CommandParameter="{Binding}">
                 <iconPacks:PackIconModern Kind="Refresh"/>
             </Button>

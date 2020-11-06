@@ -3,8 +3,7 @@ using Model.Models;
 using Model.Utils;
 using Service.Extensions;
 using Service.Interfaces;
-using System;
-using System.Configuration;
+using Service.Utils;
 using System.IO;
 
 namespace Service.Services
@@ -44,14 +43,14 @@ namespace Service.Services
             return GetFile().ReadJson<ConfigApp>();
         }
 
-        private static void CretateFile(string path)
+        private static void CreateFile(string path)
         {
-            var settings = ConfigurationManager.AppSettings;
-            new ConfigApp()
+            new ConfigApp
             {
-                Printer = settings["Printer"],
-                AccentColor = settings["AccentColor"],
-                IsPrinterActivated = Convert.ToBoolean(settings["IsPrinterActivated"])
+                Theme = ConfigHelper.Theme,
+                Printer = ConfigHelper.Printer,
+                AccentColor = ConfigHelper.AccentColor,
+                IsPrinterActivated = ConfigHelper.IsPrinterActivated,
             }.WriteJson(path);
         }
 
@@ -66,12 +65,12 @@ namespace Service.Services
 
         private static string GetFile()
         {
-            var directory = ConfigurationManager.AppSettings["Directory"];
+            var directory = ConfigHelper.Directory;
             directory = Path.Combine(directory, SystemDirectory.Configuration);
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             var file = Path.Combine(directory, $"{nameof(ConfigApp)}.json");
-            if (!File.Exists(file)) CretateFile(file);
+            if (!File.Exists(file)) CreateFile(file);
             return file;
         }
 

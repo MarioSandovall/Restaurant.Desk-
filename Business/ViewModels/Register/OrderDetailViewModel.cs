@@ -1,5 +1,7 @@
-﻿using Business.Events;
+﻿using Business.Events.Administrator;
+using Business.Events.Register;
 using Business.Interfaces.Register;
+using Business.ViewModels.Main;
 using MahApps.Metro.Controls.Dialogs;
 using Model.Models;
 using Prism.Commands;

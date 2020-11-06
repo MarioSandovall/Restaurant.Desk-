@@ -1,6 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 
-namespace Wpf
+namespace Wpf.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

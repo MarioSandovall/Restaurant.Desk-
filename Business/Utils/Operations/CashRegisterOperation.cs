@@ -3,7 +3,7 @@ using Model.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Business.Utilities.Operations
+namespace Business.Utils.Operations
 {
     public class CashRegisterOperation : ICashRegisterOperation
     {
@@ -22,7 +22,7 @@ namespace Business.Utilities.Operations
             OrderDetail detail;
             if (_orderDetails.ContainsKey(product.Id))
             {
-                _orderDetails[product.Id].Quantity = _orderDetails[product.Id].Quantity + 1;
+                _orderDetails[product.Id].Quantity += 1;
                 detail = _orderDetails[product.Id];
             }
             else

@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces.Administrator;
+using Business.ViewModels.Main;
 using Model.Models;
 using Model.Utils;
 using Service.Interfaces;
@@ -49,7 +50,7 @@ namespace Business.ViewModels.Administrator
 
         public ITableViewModel TableViewModel { get; set; }
 
-        public ITableDetailViewMoldel TableDetailViewMoldel { get; set; }
+        public ITableDetailViewMoldel TableDetailViewModel { get; set; }
 
         public IRestaurantViewModel RestaurantViewModel { get; set; }
 
@@ -71,7 +72,7 @@ namespace Business.ViewModels.Administrator
             ICategoryViewModel categoryViewModel,
             IRestaurantViewModel restaurantViewModel,
             IUserDetailViewModel userDetailViewModel,
-            ITableDetailViewMoldel tableDetailViewMoldel,
+            ITableDetailViewMoldel tableDetailViewModel,
             IProductDetailViewModel productDetailViewModel,
             ICategoryDetailViewModel categoryDetailViewModel,
             IOfficeDetailViewModel officeDetailViewModel)
@@ -87,7 +88,7 @@ namespace Business.ViewModels.Administrator
             RestaurantViewModel = restaurantViewModel;
             CategoryViewModel = categoryViewModel;
             UserDetailViewModel = userDetailViewModel;
-            TableDetailViewMoldel = tableDetailViewMoldel;
+            TableDetailViewModel = tableDetailViewModel;
             ProductDetailViewModel = productDetailViewModel;
             CategoryDetailViewModel = categoryDetailViewModel;
             OfficeDetailViewModel = officeDetailViewModel;
@@ -95,20 +96,20 @@ namespace Business.ViewModels.Administrator
 
         public void Load()
         {
-            if (Menu == null) InitializateMenu();
+            if (Menu == null) InitializeMenu();
             SelectedOption = Menu.First();
         }
 
-        private void InitializateMenu()
+        private void InitializeMenu()
         {
             Menu = new ObservableCollection<AdminMenu>()
             {
-                new AdminMenu(){ Image="", Name = "Productos", Action =  AdminMenuAction.Products},
-                new AdminMenu(){ Image="", Name = "Categorias",  Action =  AdminMenuAction.Categories},
-                new AdminMenu(){ Image="", Name = "Mesas",  Action =  AdminMenuAction.Tables},
-                new AdminMenu(){ Image="", Name = "Usuarios",  Action =  AdminMenuAction.Users},
-                new AdminMenu(){ Image="", Name = "Sucursales ",  Action =  AdminMenuAction.Offices},
-                new AdminMenu(){ Image="", Name = "Restaurante",  Action =  AdminMenuAction.Restaurant},
+                new AdminMenu { Image="", Name = "Products", Action =  AdminMenuAction.Products},
+                new AdminMenu { Image="", Name = "Categories",  Action =  AdminMenuAction.Categories},
+                new AdminMenu { Image="", Name = "Tables",  Action =  AdminMenuAction.Tables},
+                new AdminMenu { Image="", Name = "Users",  Action =  AdminMenuAction.Users},
+                new AdminMenu { Image="", Name = "Offices ",  Action =  AdminMenuAction.Offices},
+                new AdminMenu { Image="", Name = "Restaurant",  Action =  AdminMenuAction.Restaurant},
             };
         }
 
