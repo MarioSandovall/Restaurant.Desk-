@@ -74,7 +74,7 @@ namespace Business.ViewModels.Administrator
             try
             {
                 var restaurantId = _dataService.Restaurant.Id;
-                var httpResponse = await ActionAsync(async () => await _tableRepository.GetTablesAsync(restaurantId));
+                var httpResponse = await ShowProgressAsync(async () => await _tableRepository.GetTablesAsync(restaurantId));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)
@@ -118,7 +118,7 @@ namespace Business.ViewModels.Administrator
                 var result = await _dialogService.AskQuestionAsync("¿Estas seguro de querer eliminar esta mesa?", "Elimiar Mesa");
                 if (result == MessageDialogResult.Negative) return;
 
-                var httpResponse = await ActionAsync(async () => await _tableRepository.DeleteTablesAsync(id.Value));
+                var httpResponse = await ShowProgressAsync(async () => await _tableRepository.DeleteTablesAsync(id.Value));
                 if (httpResponse.IsSuccess)
                 {
                     var table = Tables.Single(x => x.Id == httpResponse.Value);

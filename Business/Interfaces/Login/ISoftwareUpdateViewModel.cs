@@ -4,7 +4,7 @@ namespace Business.Interfaces.Login
 {
     public interface ISoftwareUpdateViewModel
     {
-        Task<bool> LoadAsync();
+        Task<bool> IsNewAppVersionAsync();
 
         void CheckForUpdates();
     }

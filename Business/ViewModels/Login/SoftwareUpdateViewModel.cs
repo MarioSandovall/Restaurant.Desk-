@@ -15,7 +15,6 @@ namespace Business.ViewModels.Login
         #region Properties
 
         private bool _isNotUpdateRequired;
-
         public bool IsNotUpdateRequired
         {
             get => _isNotUpdateRequired;
@@ -34,15 +33,18 @@ namespace Business.ViewModels.Login
         {
             _logService = logService;
             _dialogService = dialogService;
+
             IsOpen = false;
         }
 
-        public async Task<bool> LoadAsync()
+        public async Task<bool> IsNewAppVersionAsync()
         {
             try
             {
-                await Task.Delay(2000);
                 IsNotUpdateRequired = false;
+
+                await Task.Delay(2000);
+
                 return await IsThereNewAppVersionAsync();
             }
             catch (Exception ex)
@@ -57,11 +59,12 @@ namespace Business.ViewModels.Login
             try
             {
                 IsNotUpdateRequired = true;
-                var result = await ActionAsync(async () => await IsThereNewAppVersionAsync());
-                if (!result)
+                if (!await ShowProgressAsync(async () => await IsThereNewAppVersionAsync()))
                 {
-                    await _dialogService.ShowMessageAsync
-                        ("No hay nuevas actualizaciones disponibles por el momento", "Actualización de software");
+                    const string title = "Software update";
+                    const string message = "There are no new updates available at the moment";
+
+                    await _dialogService.ShowMessageAsync(message, title);
                 }
             }
             catch (Exception ex)
@@ -75,19 +78,20 @@ namespace Business.ViewModels.Login
         private async Task<bool> IsThereNewAppVersionAsync()
         {
             return IsOpen = await Task.Run(() =>
-            {
-                if (!ApplicationDeployment.IsNetworkDeployed) return false;
-                return ApplicationDeployment.CurrentDeployment.CheckForUpdate();
-            });
+                ApplicationDeployment.IsNetworkDeployed && ApplicationDeployment.CurrentDeployment.CheckForUpdate());
         }
 
         protected override async void OnOkExecute()
         {
             try
             {
-                await ActionAsync(async () =>
-                await Task.Run(() => ApplicationDeployment.CurrentDeployment.Update()),
-                "Actualizando software");
+                const string message = "Updating software";
+
+                await ShowProgressAsync(async () =>
+                    await Task.Run(() => ApplicationDeployment.CurrentDeployment.Update()),
+                    message
+                );
+
                 Application.Current.Shutdown();
                 System.Windows.Forms.Application.Restart();
             }

@@ -78,7 +78,7 @@ namespace Business.ViewModels.Administrator
         {
             try
             {
-                var httpResponse = await ActionAsync(async () => await _restaurantRepository.SaveBranchOfficeAsync(Office.Model));
+                var httpResponse = await ShowProgressAsync(async () => await _restaurantRepository.SaveBranchOfficeAsync(Office.Model));
                 if (httpResponse.IsSuccess)
                 {
                     OnCloseExecute();

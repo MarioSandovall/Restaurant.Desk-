@@ -27,7 +27,7 @@ namespace Business.ViewModels.Main
             _dialogService = dialogService;
         }
 
-        protected async Task<T> ActionAsync<T>(Func<Task<T>> action, string message = "")
+        protected async Task<T> ShowProgressAsync<T>(Func<Task<T>> action, string message = "")
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Business.ViewModels.Main
             }
         }
 
-        protected async Task ActionAsync(Func<Task> action, string message = "")
+        protected async Task ShowProgressAsync(Func<Task> action, string message = "")
         {
             try
             {

@@ -19,14 +19,14 @@ namespace Service.Services
             return _dialog.ShowMessageAsync(title, message,
                 MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings()
                 {
-                    AffirmativeButtonText = "Aceptar",
-                    NegativeButtonText = "Cancelar"
+                    AffirmativeButtonText = "Accept",
+                    NegativeButtonText = "Cancel"
                 });
         }
 
         public Task<ProgressDialogController> ShowProgressAsync(string message)
         {
-            return _dialog.ShowProgressAsync("Un momento por favor...", message);
+            return _dialog.ShowProgressAsync("One moment, please...", message);
         }
 
         public Task ShowMessageAsync(string message, string title)

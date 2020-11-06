@@ -14,12 +14,16 @@ namespace Repository.Repositories
 
         }
 
+        public async Task<bool> ExistsAsync(string email)
+        {
+            var url = $"{Controller}/email/{email}";
+            return await WebService.Client.GetAsync(url).ReadAsAsync<bool>();
+        }
+
         public async Task<UserAccount> GetUserAccountAsync(string email)
         {
             var url = $"{Controller}/{email}";
-            var response = await WebService.Client.GetAsync(url);
-
-            return await response.ReadAsAsync<UserAccount>();
+            return await WebService.Client.GetAsync(url).ReadAsAsync<UserAccount>();
         }
     }
 }

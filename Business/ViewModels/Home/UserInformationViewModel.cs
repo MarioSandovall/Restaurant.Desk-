@@ -79,7 +79,7 @@ namespace Business.ViewModels.Home
         {
             try
             {
-                var httpResponse = await ActionAsync(async () => await _userRepository.UpdateUserInfoAsync(User.Model));
+                var httpResponse = await ShowProgressAsync(async () => await _userRepository.UpdateUserInfoAsync(User.Model));
                 if (httpResponse.IsSuccess)
                 {
                     _dataService.SetUser(User.Model);

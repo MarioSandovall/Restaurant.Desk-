@@ -108,7 +108,7 @@ namespace Business.ViewModels.Register
                 var cashierId = _dataService.User.Id;
                 var paymentType = _selectedPaymentType.Id;
                 var restaurantId = _dataService.Restaurant.Id;
-                var httpResponse = await ActionAsync(async () => await _orderRepository.ChargeAsync(_order.Id, _order.OrderNumber, restaurantId, cashierId, paymentType));
+                var httpResponse = await ShowProgressAsync(async () => await _orderRepository.ChargeAsync(_order.Id, _order.OrderNumber, restaurantId, cashierId, paymentType));
 
                 if (httpResponse == null) return;
                 if (httpResponse.IsSuccess)

@@ -86,7 +86,7 @@ namespace Business.ViewModels.Login
                     return;
                 }
 
-                var httpResponse = await ActionAsync(async () => await _userRepository.LoginAsync(User.Id, password?.Password));
+                var httpResponse = await ShowProgressAsync(async () => await _userRepository.LoginAsync(User.Id, password?.Password));
                 if (httpResponse.IsSuccess)
                 {
                     _dataService.SetUser(httpResponse.Value.User);

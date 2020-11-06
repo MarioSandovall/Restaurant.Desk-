@@ -90,7 +90,7 @@ namespace Business.ViewModels.Administrator
         {
             try
             {
-                var httpResponse = await ActionAsync(async () => await _restaurantRepository.UpdateRestaurantAsync(Restaurant.Model));
+                var httpResponse = await ShowProgressAsync(async () => await _restaurantRepository.UpdateRestaurantAsync(Restaurant.Model));
                 if (httpResponse.IsSuccess)
                 {
                     _dataService.SetRestaurant(Restaurant.Model);

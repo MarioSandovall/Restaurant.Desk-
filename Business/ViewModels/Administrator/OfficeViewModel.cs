@@ -90,7 +90,7 @@ namespace Business.ViewModels.Administrator
             try
             {
                 var restaurantId = _dataService.Restaurant.Id;
-                var httpResponse = await ActionAsync(async () => await _restaurantRepository.GetOfficesAsync(restaurantId));
+                var httpResponse = await ShowProgressAsync(async () => await _restaurantRepository.GetOfficesAsync(restaurantId));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)
@@ -129,7 +129,7 @@ namespace Business.ViewModels.Administrator
                     "¿Estas seguro de querer eliminar esta sucursal?");
                 if (result == MessageDialogResult.Negative) return;
 
-                var httpResponse = await ActionAsync(async () => await _restaurantRepository.DeleteBranchOfficeAsync(id.Value));
+                var httpResponse = await ShowProgressAsync(async () => await _restaurantRepository.DeleteBranchOfficeAsync(id.Value));
                 if (httpResponse.IsSuccess)
                 {
                     var office = Offices.Single(x => x.Id == httpResponse.Value);

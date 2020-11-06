@@ -133,7 +133,7 @@ namespace Business.ViewModels.Register
                 BranchOfficeName = _dataService.CurrentOffice.Name;
 
                 var officeId = _dataService.CurrentOffice.Id;
-                var httpResponse = await ActionAsync(async () => await _cashRegisterRepository.GetCashRegisterByOfficesAsync(officeId));
+                var httpResponse = await ShowProgressAsync(async () => await _cashRegisterRepository.GetCashRegisterByOfficesAsync(officeId));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)
