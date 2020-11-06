@@ -72,7 +72,7 @@ namespace Business.ViewModels.Administrator
             try
             {
                 var restaurantId = _dataService.Restaurant.Id;
-                var httpResponse = await ActionAsync(async () => await _categoryRepository.GetCategoriesAsync(restaurantId));
+                var httpResponse = await ShowProgressAsync(async () => await _categoryRepository.GetCategoriesAsync(restaurantId));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)
@@ -108,7 +108,7 @@ namespace Business.ViewModels.Administrator
                 var result = await _dialogService.AskQuestionAsync("¿Estas seguro de querer eliminar esta categoria?", "Elimiar Categoria");
                 if (result == MessageDialogResult.Negative) return;
 
-                var httpResponse = await ActionAsync(async () => await _categoryRepository.DeleteCategoryAsync(id.Value));
+                var httpResponse = await ShowProgressAsync(async () => await _categoryRepository.DeleteCategoryAsync(id.Value));
                 if (httpResponse.IsSuccess)
                 {
                     var category = ProductCategories.Single(x => x.Id == httpResponse.Value);

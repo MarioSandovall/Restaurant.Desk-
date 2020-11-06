@@ -5,6 +5,8 @@ namespace Repository.Interfaces
 {
     public interface IAccountRepository
     {
+        Task<bool> ExistsAsync(string email);
+
         Task<UserAccount> GetUserAccountAsync(string email);
     }
 }

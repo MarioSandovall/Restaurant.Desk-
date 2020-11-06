@@ -25,7 +25,7 @@ namespace Business.ViewModels.Login
             set
             {
                 SetProperty(ref _email, value);
-                ((DelegateCommand)ValidateCommand).RaiseCanExecuteChanged();
+                ((DelegateCommand)GetUserAccountCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -37,11 +37,12 @@ namespace Business.ViewModels.Login
             get => _isFocusable;
             set => SetProperty(ref _isFocusable, value);
         }
+
         #endregion
 
         #region Commands
 
-        public ICommand ValidateCommand { get; set; }
+        public ICommand GetUserAccountCommand { get; set; }
 
         #endregion
 
@@ -58,38 +59,46 @@ namespace Business.ViewModels.Login
             : base(dialogService)
         {
             _logService = logService;
-            _dialogService = dialogService;
             _repository = repository;
+            _dialogService = dialogService;
             _eventAggregator = eventAggregator;
 
-            ValidateCommand = new DelegateCommand(OnValidateExecute, OnValidateCanExecute);
+            GetUserAccountCommand = new DelegateCommand(OnGetUserAccountExecute, OnGetUserAccountCanExecute);
         }
 
         public void Load()
         {
             Email = string.Empty;
             IsFocusable = true;
-            OnValidateExecute();
+            OnGetUserAccountExecute();
         }
 
-        private async void OnValidateExecute()
+        private async void OnGetUserAccountExecute()
         {
             try
             {
-                var userAccount = await _repository.GetUserAccountAsync(Email);
+                if (await ShowProgressAsync(async () => await _repository.ExistsAsync(Email)))
+                {
+                    var userAccount = await ShowProgressAsync(async () => await _repository.GetUserAccountAsync(Email));
 
-                _eventAggregator.GetEvent<EmailLoginValidEvent>().Publish(userAccount);
-                _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToLogin);
+                    _eventAggregator.GetEvent<EmailLoginValidEvent>().Publish(userAccount);
+                    _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToLogin);
+                }
+                else
+                {
+                    await _dialogService.ShowMessageAsync("Email not found");
+                }
 
             }
             catch (Exception ex)
             {
                 _logService.Write(ex);
+                while (ex.InnerException != null) ex = ex.InnerException;
                 await _dialogService.ShowMessageAsync(ex.Message);
             }
         }
 
-        private bool OnValidateCanExecute() => !string.IsNullOrEmpty(Email) && Email.IsEmailValid();
+        private bool OnGetUserAccountCanExecute() => !string.IsNullOrEmpty(Email) && Email.IsEmailValid();
 
     }
 }

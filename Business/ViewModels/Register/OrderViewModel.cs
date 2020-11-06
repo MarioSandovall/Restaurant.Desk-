@@ -96,7 +96,7 @@ namespace Business.ViewModels.Register
                 var order = Order.Model;
                 order.RestaurantId = _dataService.Restaurant.Id;
                 order.CashRegisterId = _dataService.CashRegister.Id;
-                var httpResponse = await ActionAsync(async () => await _orderRepository.CreateAsync(order, ProductListViewModel.Deatils));
+                var httpResponse = await ShowProgressAsync(async () => await _orderRepository.CreateAsync(order, ProductListViewModel.Deatils));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)

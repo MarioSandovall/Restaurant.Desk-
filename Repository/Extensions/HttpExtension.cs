@@ -9,15 +9,18 @@ namespace Repository.Extensions
 {
     public static class HttpHelper
     {
-        public static async Task<T> ReadAsAsync<T>(this HttpResponseMessage response)
+        public static async Task<T> ReadAsAsync<T>(this Task<HttpResponseMessage> httpResponseMessage)
         {
-            if (!response.IsSuccessStatusCode)
+            var response = httpResponseMessage.Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                var errorMessage = await response.Content.ReadAsStringAsync();
-                throw new Exception(errorMessage);
+                return await response.Content.ReadAsAsync<T>();
             }
 
-            return await response.Content.ReadAsAsync<T>();
+            var errorMessage = await response.Content.ReadAsStringAsync();
+            throw new Exception(errorMessage);
+
         }
 
         //TODO: Pending to remove

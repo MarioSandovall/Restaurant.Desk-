@@ -136,7 +136,7 @@ namespace Business.ViewModels.Administrator
                 {
                     User.Model.RestaurantId = _dataService.Restaurant.Id;
                     User.Model.Roles = Roles.Where(x => x.IsChecked).Select(x => x.Id).ToArray();
-                    var httpResponse = await ActionAsync(async () => await _userRepository.SaveUserAsync(User.Model));
+                    var httpResponse = await ShowProgressAsync(async () => await _userRepository.SaveUserAsync(User.Model));
                     if (httpResponse.IsSuccess)
                     {
                         _eventAggregator.GetEvent<AfterUserSavedEvent>().Publish(httpResponse.Value);

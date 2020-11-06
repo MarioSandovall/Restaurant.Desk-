@@ -135,7 +135,7 @@ namespace Business.ViewModels.Administrator
         {
             try
             {
-                var httpResponse = await ActionAsync(async () =>
+                var httpResponse = await ShowProgressAsync(async () =>
                     await _productRepository.SaveProductAsync(Product.Model));
 
                 if (httpResponse.IsSuccess)

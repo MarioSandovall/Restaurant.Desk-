@@ -33,10 +33,10 @@ namespace Business.ViewModels.Login
         {
             try
             {
-                var result = await _softwareUpdateViewModel.LoadAsync();
-                if (result) return;
-
-                _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToEmailLogin);
+                if (!await _softwareUpdateViewModel.IsNewAppVersionAsync())
+                {
+                    _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToEmailLogin);
+                }
             }
             catch (Exception ex)
             {

@@ -53,7 +53,7 @@ namespace Business.ViewModels.Register
                     Quantity = Quantity
                 };
 
-                var httpResponse = await ActionAsync(async () => await _cashRegisterRepository.SetCashRegisterAsync(model));
+                var httpResponse = await ShowProgressAsync(async () => await _cashRegisterRepository.SetCashRegisterAsync(model));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)

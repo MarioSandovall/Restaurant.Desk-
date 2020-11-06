@@ -127,7 +127,7 @@ namespace Business.ViewModels.Register
             if (result == MessageDialogResult.Negative) return;
 
             var cashierId = _dataService.User.Id;
-            var httpResponse = await ActionAsync(async () => await _orderRepository.CancelAsync(Order.Id, cashierId));
+            var httpResponse = await ShowProgressAsync(async () => await _orderRepository.CancelAsync(Order.Id, cashierId));
             if (httpResponse == null) return;
 
             if (httpResponse.IsSuccess)

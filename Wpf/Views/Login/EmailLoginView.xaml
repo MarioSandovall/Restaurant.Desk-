@@ -27,7 +27,7 @@
             <TextBlock Style="{StaticResource TitleStyle}" Text="Restaurant System"/>
         </StackPanel>
 
-        <mah:MetroHeader Header="Emai" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <mah:MetroHeader Header="Email" HorizontalAlignment="Center" VerticalAlignment="Center">
             <mah:MetroHeader.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -38,17 +38,17 @@
             </mah:MetroHeader.HeaderTemplate>
             <TextBox x:Name="Email" MaxWidth="250"  Width="250" FontSize="15" Height="30"  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" >
                 <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding ValidateCommand}"  Key="Enter"/>
+                    <KeyBinding Command="{Binding GetUserAccountCommand}"  Key="Enter"/>
                 </TextBox.InputBindings>
             </TextBox>
         </mah:MetroHeader>
 
         <StackPanel  Margin="10" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Button Style="{StaticResource ButtonStyle}" 
-                    Command="{Binding ValidateCommand}">
+                    Command="{Binding GetUserAccountCommand}">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial VerticalAlignment="Center"  Kind="ArrowRightThick" />
-                    <Label Content="Siguiente" />
+                    <Label Content="Continue" />
                 </StackPanel>
             </Button>
         </StackPanel>

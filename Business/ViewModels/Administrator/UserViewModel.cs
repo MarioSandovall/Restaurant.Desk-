@@ -73,7 +73,7 @@ namespace Business.ViewModels.Administrator
             try
             {
                 var restaurantId = _dataService.Restaurant.Id;
-                var httpResponse = await ActionAsync(async () => await _userRepository.GetSystemUsersAsync(restaurantId));
+                var httpResponse = await ShowProgressAsync(async () => await _userRepository.GetSystemUsersAsync(restaurantId));
                 if (httpResponse == null) return;
 
                 if (httpResponse.IsSuccess)
@@ -118,7 +118,7 @@ namespace Business.ViewModels.Administrator
                 var result = await _dialogService.AskQuestionAsync("¿Estas seguro de querer eliminar este usuario?", "Elimiar Usuario");
                 if (result == MessageDialogResult.Negative) return;
 
-                var httpResponse = await ActionAsync(async () => await _userRepository.DeleteUserAsync(id.Value));
+                var httpResponse = await ShowProgressAsync(async () => await _userRepository.DeleteUserAsync(id.Value));
                 if (httpResponse.IsSuccess)
                 {
                     var user = Users.Single(x => x.Id == httpResponse.Value);
