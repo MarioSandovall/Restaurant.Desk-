@@ -1,5 +1,6 @@
 ﻿using Business.Events.Home;
 using Business.Events.Login;
+using Business.Extensions;
 using Business.Interfaces.Administrator;
 using Business.ViewModels.Main;
 using Model.Utils;
@@ -9,8 +10,6 @@ using Repository.Interfaces;
 using Service.Interfaces;
 using System;
 using System.Windows.Input;
-using Business.Extensions;
-using Business.Utils;
 
 namespace Business.ViewModels.Login
 {
@@ -48,18 +47,19 @@ namespace Business.ViewModels.Login
 
         private readonly ILogService _logService;
         private readonly IDialogService _dialogService;
-        private readonly IUserRepository _userRepository;
+        private readonly IAccountRepository _repository;
         private readonly IEventAggregator _eventAggregator;
+
         public EmailLoginViewModel(
             ILogService logService,
             IDialogService dialogService,
-            IUserRepository userRepository,
+            IAccountRepository repository,
             IEventAggregator eventAggregator)
             : base(dialogService)
         {
             _logService = logService;
             _dialogService = dialogService;
-            _userRepository = userRepository;
+            _repository = repository;
             _eventAggregator = eventAggregator;
 
             ValidateCommand = new DelegateCommand(OnValidateExecute, OnValidateCanExecute);
@@ -76,16 +76,11 @@ namespace Business.ViewModels.Login
         {
             try
             {
-                var httpResponse = await ActionAsync(async () => await _userRepository.ValidateEmailAsync(Email));
-                if (httpResponse.IsSuccess)
-                {
-                    _eventAggregator.GetEvent<EmailLoginValidEvent>().Publish(httpResponse.Value);
-                    _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToLogin);
-                }
-                else
-                {
-                    await _dialogService.ShowMessageAsync(httpResponse.Message);
-                }
+                var userAccount = await _repository.GetUserAccountAsync(Email);
+
+                _eventAggregator.GetEvent<EmailLoginValidEvent>().Publish(userAccount);
+                _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToLogin);
+
             }
             catch (Exception ex)
             {

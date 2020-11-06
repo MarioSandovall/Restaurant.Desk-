@@ -7,11 +7,11 @@ using Model.Models;
 using Prism.Commands;
 using Prism.Events;
 using Repository.Interfaces;
+using Service.Extensions;
 using Service.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
-using Service.Extensions;
 
 namespace Business.ViewModels.Home
 {
@@ -104,7 +104,7 @@ namespace Business.ViewModels.Home
         {
             var openFile = new OpenFileDialog
             {
-                Title = "Selecione una imagen",
+                Title = "Select an image",
                 Filter = "All | *.jpg; *.jpeg; *.png"
             };
 

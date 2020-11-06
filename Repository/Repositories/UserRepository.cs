@@ -12,7 +12,10 @@ namespace Repository.Repositories
     public class UserRepository : RepositoryBase, IUserRepository
     {
         public UserRepository(IWebService webService)
-            : base(webService, "User") { }
+            : base(webService, "User")
+        {
+
+        }
 
         public async Task<IValueResponse<LoginUserDto>> LoginAsync(int userId, string password)
         {

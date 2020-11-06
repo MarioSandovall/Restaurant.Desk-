@@ -3,6 +3,7 @@ using Business.Events.Login;
 using Business.Interfaces.Login;
 using Business.ViewModels.Main;
 using Business.Wrappers;
+using Model.Models;
 using Model.Utils;
 using Prism.Commands;
 using Prism.Events;
@@ -43,6 +44,7 @@ namespace Business.ViewModels.Login
         private readonly IUserRepository _userRepository;
         private readonly IEventAggregator _eventAggregator;
 
+
         public LoginViewModel(
             ILogService logService,
             IDataService dataService,
@@ -63,14 +65,15 @@ namespace Business.ViewModels.Login
             LoginCommand = new DelegateCommand<object>(OnLoginExecute);
             ReturnCommand = new DelegateCommand(OnReturnExecute);
 
-            _eventAggregator.GetEvent<EmailLoginValidEvent>().Subscribe((model) => User = new UserWrapper(model));
+            _eventAggregator.GetEvent<EmailLoginValidEvent>().Subscribe((model) =>
+            {
+
+                //TODO: Change wrapper
+                User = new UserWrapper(new User());
+            });
 
         }
 
-        public void Load()
-        {
-            OnLoginExecute(new PasswordBox() { Password = "hola" });
-        }
 
         private async void OnLoginExecute(object pass)
         {

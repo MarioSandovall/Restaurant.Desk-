@@ -109,7 +109,7 @@ namespace Business.ViewModels.Administrator
                 new AdminMenu { Image="", Name = "Tables",  Action =  AdminMenuAction.Tables},
                 new AdminMenu { Image="", Name = "Users",  Action =  AdminMenuAction.Users},
                 new AdminMenu { Image="", Name = "Offices ",  Action =  AdminMenuAction.Offices},
-                new AdminMenu { Image="", Name = "Restaurant",  Action =  AdminMenuAction.Restaurant},
+                new AdminMenu { Image="", Name = "Restaurant",  Action =  AdminMenuAction.Restaurant}
             };
         }
 

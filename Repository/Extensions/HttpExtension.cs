@@ -1,16 +1,26 @@
 ﻿using Model.Interfaces;
 using Model.Models;
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Repository.Extensions
 {
     public static class HttpHelper
     {
+        public static async Task<T> ReadAsAsync<T>(this HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+
+            return await response.Content.ReadAsAsync<T>();
+        }
+
+        //TODO: Pending to remove
         public static async Task<IValueResponse<T>> ReadHttpContentAsync<T>(this HttpResponseMessage response)
         {
             var result = new ValueResponse<T> { IsSuccess = response.IsSuccessStatusCode };
@@ -27,6 +37,7 @@ namespace Repository.Extensions
             return result;
         }
 
+        //TODO: Pending to remove
         public static IResponse ReadHttpContentAsync(this HttpResponseMessage response)
         {
             var result = new Response { IsSuccess = response.IsSuccessStatusCode };
@@ -39,6 +50,8 @@ namespace Repository.Extensions
             return result;
         }
 
+
+        //TODO: Pending to remove
         public static Tuple<string, string> ConvertResponseMessage(this HttpResponseMessage response)
         {
             string message;
@@ -65,27 +78,6 @@ namespace Repository.Extensions
                     break;
             }
             return Tuple.Create(title, message);
-        }
-
-        public static string ToQueryString<T>(this string url, T myObject)
-        {
-            if (myObject == null) return url;
-
-            var properties = myObject.GetType().GetProperties();
-            if (!properties.Any()) return url;
-
-            var urlBuilder = new StringBuilder(url);
-            urlBuilder.Append("?");
-            var last = properties.Last();
-
-            foreach (var property in myObject.GetType().GetProperties())
-            {
-
-                urlBuilder.Append($"{property.Name}={ property.GetValue(myObject)}");
-                if (property.Name != last.Name) urlBuilder.Append("&");
-            }
-
-            return urlBuilder.ToString();
         }
 
     }
