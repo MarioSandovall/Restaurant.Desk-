@@ -2,19 +2,20 @@
 using Model.Utils;
 using Service.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Service.Services
 {
     public class LookupService : ILookupServices
     {
-        private readonly IDataService _dataService;
+        private readonly IUserService _userService;
         public LookupService(
-            IDataService dataService)
+            IUserService userService)
         {
-            _dataService = dataService;
+            _userService = userService;
         }
 
-        public IEnumerable<LookupItem> GetMenuItems()
+        public IEnumerable<LookupItem> GetMenuOptions()
         {
             yield return new LookupItem()
             {
@@ -24,7 +25,7 @@ namespace Service.Services
                 Image = "/Wpf;component/Resources/Images/Menu/Home.png",
             };
 
-            if (_dataService.IsCasher)
+            if (_userService.IsCasher)
             {
                 yield return new LookupItem()
                 {
@@ -35,7 +36,7 @@ namespace Service.Services
                 };
             }
 
-            if (_dataService.IsAdmin)
+            if (_userService.IsAdmin)
             {
                 yield return new LookupItem()
                 {
@@ -55,7 +56,7 @@ namespace Service.Services
             };
         }
 
-        public IEnumerable<LookupItem> GetOptions()
+        public IEnumerable<LookupItem> GetSettingsOptions()
         {
             yield return new LookupItem()
             {
@@ -80,6 +81,11 @@ namespace Service.Services
                 Action = MenuAction.Exit,
                 Image = "/Wpf;component/Resources/Images/Menu/Close.png",
             };
+        }
+
+        public IEnumerable<LookupItem> GetAllMenuOptions()
+        {
+            return GetMenuOptions().Concat(GetSettingsOptions());
         }
     }
 }

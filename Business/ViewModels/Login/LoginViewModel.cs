@@ -40,14 +40,14 @@ namespace Business.ViewModels.Login
         #endregion
 
         private readonly ILogService _logService;
-        private readonly IDataService _dataService;
+        private readonly IUserService _userService;
         private readonly ILoginRepository _repository;
         private readonly IDialogService _dialogService;
         private readonly IEventAggregator _eventAggregator;
 
         public LoginViewModel(
             ILogService logService,
-            IDataService dataService,
+            IUserService userService,
             ILoginRepository repository,
             IDialogService dialogService,
             IEventAggregator eventAggregator,
@@ -56,7 +56,7 @@ namespace Business.ViewModels.Login
         {
             _logService = logService;
             _repository = repository;
-            _dataService = dataService;
+            _userService = userService;
             _dialogService = dialogService;
             _eventAggregator = eventAggregator;
 
@@ -100,9 +100,8 @@ namespace Business.ViewModels.Login
                     {
                         var loggedUser = await _repository.GetUserAsync(AuthenticateModel);
 
-                        _dataService.SetLoggedUser(loggedUser);
-                        //_dataService.SetRestaurant(httpResponse.Value.Restaurant);
-                        //_dataService.SetBranchOffices(httpResponse.Value.BranchOffices);
+                        _userService.SetUser(loggedUser);
+
                         _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToHome);
 
                     }

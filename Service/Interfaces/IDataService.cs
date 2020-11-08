@@ -1,15 +1,13 @@
 ﻿using Model.Models;
-using Model.Models.Login;
 using System.Collections.Generic;
 
 namespace Service.Interfaces
 {
+    //TODO: Pending to remove
     public interface IDataService
     {
         User User { get; }
         
-        LoginUser LoggedUser { get; }
-
         Restaurant Restaurant { get; }
 
         BranchOffice CurrentOffice { get; }
@@ -25,8 +23,6 @@ namespace Service.Interfaces
         bool IsCasher { get; }
 
         void SetUser(User user);
-
-        void SetLoggedUser(LoginUser loggedUser);
 
         void SetCashRegister(CashRegister register);
 

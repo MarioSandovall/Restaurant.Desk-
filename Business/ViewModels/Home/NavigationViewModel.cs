@@ -85,7 +85,7 @@ namespace Business.ViewModels.Home
         {
             if (MenuItems.Count > 0) return;
 
-            var lookup = _lookupService.GetMenuItems().ToList();
+            var lookup = _lookupService.GetMenuOptions().ToList();
             var isAdmin = _dataService.IsAdmin;
 
             foreach (var menu in lookup)
@@ -94,7 +94,7 @@ namespace Business.ViewModels.Home
                 MenuItems.Add(menu);
             }
 
-            lookup = _lookupService.GetOptions().ToList();
+            lookup = _lookupService.GetSettingsOptions().ToList();
             foreach (var option in lookup)
             {
                 if (option.IsForAdmin && !isAdmin) continue;

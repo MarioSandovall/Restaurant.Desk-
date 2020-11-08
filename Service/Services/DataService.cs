@@ -1,5 +1,4 @@
 ﻿using Model.Models;
-using Model.Models.Login;
 using Model.Utils;
 using Service.Interfaces;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 
 namespace Service.Services
 {
+    //TODO: Pending to remove
     public class DataService : IDataService
     {
 
@@ -19,21 +19,11 @@ namespace Service.Services
         public ICollection<BranchOffice> BranchOffices { get; private set; }
         public Restaurant Restaurant { get; private set; }
 
-        public LoginUser LoggedUser { get; private set; }
-
-        //TODO: Pending to remove
         public void SetUser(User user)
         {
             User = new User(user);
             IsAdmin = User.Roles.Contains((int)RoleEnum.Admin);
             IsCasher = User.Roles.Contains((int)RoleEnum.Cashier);
-        }
-
-        void IDataService.SetLoggedUser(LoginUser loggedUser)
-        {
-            LoggedUser = loggedUser;
-            IsAdmin = LoggedUser.RoleIds.Contains((int)RoleEnum.Admin);
-            IsCasher = LoggedUser.RoleIds.Contains((int)RoleEnum.Cashier);
         }
 
         public void SetCashRegister(CashRegister register) => CashRegister = register;

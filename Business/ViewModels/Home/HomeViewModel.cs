@@ -2,7 +2,6 @@
 using Business.Events.Home;
 using Business.Interfaces.Home;
 using MahApps.Metro;
-using Model.Models;
 using Prism.Events;
 using Prism.Mvvm;
 using Service.Interfaces;
@@ -30,7 +29,6 @@ namespace Business.ViewModels.Home
             set => SetProperty(ref _officeName, value);
         }
 
-
         private string _restaurantName;
         public string RestaurantName
         {
@@ -49,78 +47,72 @@ namespace Business.ViewModels.Home
 
         #endregion
 
-        private string _currentColor;
-        private readonly IDataService _dataService;
-        private readonly ILookupServices _lookupServices;
+        private readonly IUserService _userService;
         private readonly IWindowService _windowService;
+        private readonly ILookupServices _lookupServices;
         private readonly IEventAggregator _eventAggregator;
 
         public HomeViewModel(
-            ILookupServices lookupServices,
-            IEventAggregator eventAggregator,
+            IUserService userService,
             IWindowService windowService,
-            IDataService dataService)
+            ILookupServices lookupServices,
+            IEventAggregator eventAggregator)
         {
+            _userService = userService;
+            _windowService = windowService;
             _lookupServices = lookupServices;
             _eventAggregator = eventAggregator;
-            _windowService = windowService;
-            _dataService = dataService;
 
-            _currentColor = string.Empty;
             MenuItems = new ObservableCollection<NavigationItemViewModel>();
 
-            _eventAggregator.GetEvent<UpdateAccentColorEvent>().Subscribe(InitializeMenu);
-            _eventAggregator.GetEvent<AfterUserInfoSavedEvent>().Subscribe(InitializeUser);
-            _eventAggregator.GetEvent<AfterRestaurantSavedEvent>().Subscribe(InitializeRestaurant);
+            _eventAggregator.GetEvent<UpdateAccentColorEvent>().Subscribe(OnUpdateAccentColor);
+            _eventAggregator.GetEvent<AfterUserInfoSavedEvent>().Subscribe(InitializeUserInfo);
         }
 
         public void Load()
         {
-            InitializeUser();
-            InitializeRestaurant();
-            if (MenuItems.Count == 0) InitializeMenu();
+            InitializeUserInfo();
+            InitializeMenu();
         }
 
-        private void InitializeUser()
+        private void InitializeUserInfo()
         {
-            Image = _dataService.LoggedUser.Image;
-            FullName = _dataService.LoggedUser.FullName;
+            Image = _userService.Image;
+            FullName = _userService.FullName;
+            OfficeName = _userService.OfficeName;
+            RestaurantName = _userService.RestaurantName;
         }
-
-        private void InitializeRestaurant()
+        private void OnUpdateAccentColor()
         {
-            //OfficeName = _dataService.CurrentOffice.Name;
-            //RestaurantName = _dataService.Restaurant.Name;
+            MenuItems.Clear();
+            InitializeMenu();
         }
 
         private void InitializeMenu()
         {
-            MenuItems.Clear();
-            var lookup = _lookupServices.GetMenuItems().ToList();
-            var isAdmin = _dataService.IsAdmin;
-
-            foreach (var item in lookup)
+            if (MenuItems.Count == 0)
             {
-                if (item.IsForAdmin && !isAdmin) continue;
-                AddItemToMenu(item);
-            }
+                var selectedColor = string.Empty;
+                var accentColor = ThemeManager.DetectAppStyle(_windowService.Window).Item2.Resources["AccentColor"].ToString();
 
-            lookup = _lookupServices.GetOptions().ToList();
-            foreach (var options in lookup)
-            {
-                if (options.IsForAdmin && !isAdmin) continue;
-                AddItemToMenu(options);
+                var menuOptions = _lookupServices.GetAllMenuOptions().ToList();
+                foreach (var menuOption in menuOptions)
+                {
+
+                    SelectAccentColor(ref selectedColor, accentColor);
+
+                    var NavigationItem = new NavigationItemViewModel(_eventAggregator, menuOption, selectedColor);
+
+                    MenuItems.Add(NavigationItem);
+                }
             }
         }
 
-        private void AddItemToMenu(LookupItem item)
+        private void SelectAccentColor(ref string currentColor, string secondaryColor)
         {
-            _currentColor = _currentColor == SecondaryColor ? PrimaryColor : SecondaryColor;
-            MenuItems.Add(new NavigationItemViewModel(_eventAggregator, item, _currentColor));
+            const string PrimaryColor = "#FF444444";
+            currentColor = currentColor == secondaryColor ? PrimaryColor : secondaryColor;
         }
-
-        private const string PrimaryColor = "#FF444444";
-        private string SecondaryColor => ThemeManager.DetectAppStyle(_windowService.Window).Item2.Resources["AccentColor"].ToString();
 
     }
 }

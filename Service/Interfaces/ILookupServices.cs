@@ -5,8 +5,10 @@ namespace Service.Interfaces
 {
     public interface ILookupServices
     {
-        IEnumerable<LookupItem> GetMenuItems();
+        IEnumerable<LookupItem> GetMenuOptions();
 
-        IEnumerable<LookupItem> GetOptions();
+        IEnumerable<LookupItem> GetSettingsOptions();
+
+        IEnumerable<LookupItem> GetAllMenuOptions();
     }
 }
