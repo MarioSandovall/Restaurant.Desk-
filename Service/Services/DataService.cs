@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Service.Services
 {
+    //TODO: Pending to remove
     public class DataService : IDataService
     {
 
@@ -17,7 +18,6 @@ namespace Service.Services
         public ICollection<PaymentType> PaymentTypes { get; private set; }
         public ICollection<BranchOffice> BranchOffices { get; private set; }
         public Restaurant Restaurant { get; private set; }
-
 
         public void SetUser(User user)
         {
@@ -42,5 +42,7 @@ namespace Service.Services
             BranchOffices = branchOffices;
             if (BranchOffices.Any()) CurrentOffice = BranchOffices.First();
         }
+
+    
     }
 }

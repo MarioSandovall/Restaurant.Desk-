@@ -111,7 +111,7 @@
     <Compile Include="Events\Home\AfterNavigationEvent.cs" />
     <Compile Include="Events\Home\BeforeNavigationEvent.cs" />
     <Compile Include="Events\Home\VisibleMenuEvent.cs" />
-    <Compile Include="Events\Login\EmailLoginValidEvent.cs" />
+    <Compile Include="Events\Login\UserAccountEvent.cs" />
     <Compile Include="Events\Register\AfterOrderChargedEvent.cs" />
     <Compile Include="Events\Register\AfterOrderCreatedEvent.cs" />
     <Compile Include="Events\Register\SelectOrderEvent.cs" />
@@ -204,6 +204,7 @@
     <Compile Include="Wrappers\ProductWrapper.cs" />
     <Compile Include="Wrappers\RestaurantWrapper.cs" />
     <Compile Include="Wrappers\TableWrapper.cs" />
+    <Compile Include="Wrappers\UserAccountWrapper.cs" />
     <Compile Include="Wrappers\UserWrapper.cs" />
   </ItemGroup>
   <ItemGroup>

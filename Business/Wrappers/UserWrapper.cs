@@ -63,7 +63,7 @@ namespace Business.Wrappers
 
         public UserWrapper(User model) : base(model)
         {
-            Image = model.Image ?? RestaurantImages.Profile.ImgUrlToByteArray();
+            Image = model.Image ?? Images.Profile.ImgUrlToByteArray();
         }
 
         public void Update(User user)

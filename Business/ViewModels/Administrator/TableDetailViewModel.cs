@@ -101,7 +101,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnDeleteImageExecute()
         {
-            Table.Image = RestaurantImages.Table.ImgUrlToByteArray();
+            Table.Image = Images.Table.ImgUrlToByteArray();
         }
 
         private void OnLoadImageExecute()

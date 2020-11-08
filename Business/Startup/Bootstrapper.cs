@@ -42,6 +42,8 @@ namespace Business.Startup
             _builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
             //Services
+            _builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
+
             _builder.RegisterType<LogService>().As<ILogService>();
             _builder.RegisterType<ConfigService>().As<IConfigService>();
             _builder.RegisterType<WindowService>().As<IWindowService>();
@@ -93,7 +95,7 @@ namespace Business.Startup
 
 
             //Repositories
-
+            _builder.RegisterType<LoginRepository>().As<ILoginRepository>();
             _builder.RegisterType<AccountRepository>().As<IAccountRepository>();
 
             _builder.RegisterType<UserRepository>().As<IUserRepository>();

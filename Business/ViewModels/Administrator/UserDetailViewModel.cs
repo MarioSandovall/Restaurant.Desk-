@@ -125,7 +125,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnDeleteImageExecute()
         {
-            User.Image = RestaurantImages.Profile.ImgUrlToByteArray();
+            User.Image = Images.Profile.ImgUrlToByteArray();
         }
 
         protected override async void OnOkExecute()

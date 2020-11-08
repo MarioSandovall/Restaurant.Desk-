@@ -3,7 +3,7 @@ using Prism.Events;
 
 namespace Business.Events.Login
 {
-    public class EmailLoginValidEvent : PubSubEvent<UserAccount>
+    public class UserAccountEvent : PubSubEvent<UserAccount>
     {
 
     }

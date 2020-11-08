@@ -124,7 +124,7 @@ namespace Business.ViewModels.Administrator
             }
         }
 
-        private void OnDeleteImageExecute() => Restaurant.Image = RestaurantImages.Restaurant.ImgUrlToByteArray();
+        private void OnDeleteImageExecute() => Restaurant.Image = Images.Restaurant.ImgUrlToByteArray();
 
 
     }

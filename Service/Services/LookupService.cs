@@ -2,84 +2,90 @@
 using Model.Utils;
 using Service.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Service.Services
 {
     public class LookupService : ILookupServices
     {
-        private readonly IDataService _dataService;
+        private readonly IUserService _userService;
         public LookupService(
-            IDataService dataService)
+            IUserService userService)
         {
-            _dataService = dataService;
+            _userService = userService;
         }
 
-        public IEnumerable<LookupItem> GetMenuItems()
+        public IEnumerable<LookupItem> GetMenuOptions()
         {
             yield return new LookupItem()
             {
-                Name = "Inicio",
+                Name = "Home",
                 IsForAdmin = false,
                 Action = MenuAction.GoToHome,
-                Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/Home.png",
+                Image = "/Wpf;component/Resources/Images/Menu/Home.png",
             };
 
-            if (_dataService.IsCasher)
+            if (_userService.IsCasher)
             {
                 yield return new LookupItem()
                 {
-                    Name = "Caja",
+                    Name = "Cash Register",
                     IsForAdmin = false,
                     Action = MenuAction.GoToCashRegister,
-                    Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/CountingMachine.png",
+                    Image = "/Wpf;component/Resources/Images/Menu/CountingMachine.png",
                 };
             }
 
-            if (_dataService.IsAdmin)
+            if (_userService.IsAdmin)
             {
                 yield return new LookupItem()
                 {
-                    Name = "Administrador",
+                    Name = "Admin",
                     IsForAdmin = true,
                     Action = MenuAction.GoToAdmin,
-                    Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/Admin.png",
+                    Image = "/Wpf;component/Resources/Images/Menu/Admin.png",
                 };
             }
 
             yield return new LookupItem()
             {
-                Name = "Usuario",
+                Name = "Profile",
                 IsForAdmin = false,
                 Action = MenuAction.GoToUserInformation,
-                Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/UserProfile.png",
+                Image = "/Wpf;component/Resources/Images/Menu/UserProfile.png",
             };
         }
 
-        public IEnumerable<LookupItem> GetOptions()
+        public IEnumerable<LookupItem> GetSettingsOptions()
         {
             yield return new LookupItem()
             {
-                Name = "Actualizar",
+                Name = "Update",
                 IsForAdmin = false,
                 Action = MenuAction.UpdateApplication,
-                Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/Update.png",
+                Image = "/Wpf;component/Resources/Images/Menu/Update.png",
             };
 
             yield return new LookupItem()
             {
-                Name = "Configuraciones",
+                Name = "Settings",
                 IsForAdmin = false,
                 Action = MenuAction.GoToSettings,
-                Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/Settings.png",
+                Image = "/Wpf;component/Resources/Images/Menu/Settings.png",
             };
 
             yield return new LookupItem()
             {
-                Name = "Salir",
+                Name = "Close",
                 IsForAdmin = false,
                 Action = MenuAction.Exit,
-                Image = "/Restaurant.DeskApp;component/Resources/Images/Menu/Close.png",
+                Image = "/Wpf;component/Resources/Images/Menu/Close.png",
             };
+        }
+
+        public IEnumerable<LookupItem> GetAllMenuOptions()
+        {
+            return GetMenuOptions().Concat(GetSettingsOptions());
         }
     }
 }

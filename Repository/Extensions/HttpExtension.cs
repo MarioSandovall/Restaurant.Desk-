@@ -11,16 +11,15 @@ namespace Repository.Extensions
     {
         public static async Task<T> ReadAsAsync<T>(this Task<HttpResponseMessage> httpResponseMessage)
         {
-            var response = httpResponseMessage.Result;
+            HttpResponseMessage response = await httpResponseMessage;
 
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadAsAsync<T>();
             }
 
-            var errorMessage = await response.Content.ReadAsStringAsync();
-            throw new Exception(errorMessage);
-
+            var message = $"{response.ReasonPhrase} : {response.RequestMessage}";
+            throw new Exception(message);
         }
 
         //TODO: Pending to remove
