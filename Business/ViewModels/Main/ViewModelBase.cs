@@ -34,14 +34,20 @@ namespace Business.ViewModels.Main
                 if (IsBusy) return default(T);
 
                 IsBusy = true;
+
                 _progress = await _dialogService.ShowProgressAsync(message);
+
                 _progress.SetCancelable(true);
+
+                _progress.Canceled -= ProgressOnCanceled;
                 _progress.Canceled += ProgressOnCanceled;
+
                 _progress.SetIndeterminate();
 
-                var result = await Task.Run(async () => await action());
+                var result = await action();
 
                 await _progress.CloseAsync();
+
                 return result;
             }
             catch (Exception)
@@ -62,12 +68,17 @@ namespace Business.ViewModels.Main
                 if (IsBusy) return;
 
                 IsBusy = true;
+
                 _progress = await _dialogService.ShowProgressAsync(message);
+
                 _progress.SetIndeterminate();
+
                 _progress.SetCancelable(true);
+
+                _progress.Canceled -= ProgressOnCanceled;
                 _progress.Canceled += ProgressOnCanceled;
 
-                await Task.Run(async () => await action());
+                await action();
 
                 await _progress.CloseAsync();
             }

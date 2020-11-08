@@ -84,7 +84,7 @@ namespace Business.ViewModels.Administrator
             Category.Name = model.Name;
             Category.Description = model.Description;
             Category.RestaurantId = _dataService.Restaurant.Id;
-            Category.Image = model.Image ?? RestaurantImages.Category.ImgUrlToByteArray();
+            Category.Image = model.Image ?? Images.Category.ImgUrlToByteArray();
 
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
@@ -113,7 +113,7 @@ namespace Business.ViewModels.Administrator
 
         private void OnDeleteImageExecute()
         {
-            Category.Image = RestaurantImages.Category.ImgUrlToByteArray();
+            Category.Image = Images.Category.ImgUrlToByteArray();
         }
 
         protected override async void OnOkExecute()

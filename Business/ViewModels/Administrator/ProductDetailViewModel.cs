@@ -111,14 +111,14 @@ namespace Business.ViewModels.Administrator
             Product.Description = model.Description;
             Product.RestaurantId = _dataService.Restaurant.Id;
             Product.ProductCategoryId = model.ProductCategoryId;
-            Product.Image = model.Image ?? RestaurantImages.Product.ImgUrlToByteArray();
+            Product.Image = model.Image ?? Images.Product.ImgUrlToByteArray();
 
             ((DelegateCommand)OkCommand).RaiseCanExecuteChanged();
         }
 
         private void OnDeleteImageExecute()
         {
-            Product.Image = RestaurantImages.Product.ImgUrlToByteArray();
+            Product.Image = Images.Product.ImgUrlToByteArray();
         }
 
         private void WrapperOnPropertyChanged(object sender, PropertyChangedEventArgs e)

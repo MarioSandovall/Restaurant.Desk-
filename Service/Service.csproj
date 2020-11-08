@@ -88,7 +88,7 @@
     <Compile Include="Services\WebService.cs" />
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="Utils\ConfigHelper.cs" />
-    <Compile Include="Utils\RestaurantImages.cs" />
+    <Compile Include="Utils\Images.cs" />
     <Compile Include="Utils\ObjectHelper.cs" />
     <Compile Include="Utils\PurchaseDocument.cs" />
   </ItemGroup>

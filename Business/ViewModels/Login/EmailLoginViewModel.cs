@@ -69,7 +69,9 @@ namespace Business.ViewModels.Login
         public void Load()
         {
             Email = string.Empty;
+
             IsFocusable = true;
+            
             OnGetUserAccountExecute();
         }
 
@@ -77,18 +79,21 @@ namespace Business.ViewModels.Login
         {
             try
             {
-                if (await ShowProgressAsync(async () => await _repository.ExistsAsync(Email)))
+                await ShowProgressAsync(async () =>
                 {
-                    var userAccount = await ShowProgressAsync(async () => await _repository.GetUserAccountAsync(Email));
+                    if (await _repository.ExistsAsync(Email))
+                    {
+                        var userAccount = await _repository.GetUserAccountAsync(Email);
 
-                    _eventAggregator.GetEvent<EmailLoginValidEvent>().Publish(userAccount);
-                    _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToLogin);
-                }
-                else
-                {
-                    await _dialogService.ShowMessageAsync("Email not found");
-                }
+                        _eventAggregator.GetEvent<UserAccountEvent>().Publish(userAccount);
 
+                        _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToLogin);
+                    }
+                    else
+                    {
+                        await _dialogService.ShowMessageAsync("Email not found");
+                    }
+                });
             }
             catch (Exception ex)
             {

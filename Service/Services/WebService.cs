@@ -10,7 +10,7 @@ namespace Service.Services
     {
         public WebService()
         {
-            var url = $"http://{ConfigHelper.Server}/Api/";
+            var url = $"{ConfigHelper.Server}/Api/";
             Client = new HttpClient() { BaseAddress = new Uri(url) };
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

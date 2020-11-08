@@ -83,14 +83,14 @@ namespace Business.ViewModels.Home
 
         private void InitializeUser()
         {
-            Image = _dataService.User.Image;
-            FullName = _dataService.User.Name;
+            Image = _dataService.LoggedUser.Image;
+            FullName = _dataService.LoggedUser.FullName;
         }
 
         private void InitializeRestaurant()
         {
-            OfficeName = _dataService.CurrentOffice.Name;
-            RestaurantName = _dataService.Restaurant.Name;
+            //OfficeName = _dataService.CurrentOffice.Name;
+            //RestaurantName = _dataService.Restaurant.Name;
         }
 
         private void InitializeMenu()

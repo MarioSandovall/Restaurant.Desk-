@@ -1,6 +1,6 @@
 ﻿namespace Service.Utils
 {
-    public static class RestaurantImages
+    public static class Images
     {
         public const string Table = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/Table.png";
         public const string Product = "pack://application:,,,/Wpf;component/Resources/Images/Restaurant/Logo.png";

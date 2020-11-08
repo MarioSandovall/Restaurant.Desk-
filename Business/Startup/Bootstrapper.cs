@@ -93,7 +93,7 @@ namespace Business.Startup
 
 
             //Repositories
-
+            _builder.RegisterType<LoginRepository>().As<ILoginRepository>();
             _builder.RegisterType<AccountRepository>().As<IAccountRepository>();
 
             _builder.RegisterType<UserRepository>().As<IUserRepository>();

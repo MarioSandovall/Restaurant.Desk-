@@ -20,18 +20,18 @@
                     CornerRadius="100" Width="100" Height="100">
                 <Ellipse>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding User.Image}" Stretch="UniformToFill" />
+                        <ImageBrush ImageSource="{Binding UserAccount.Image}" Stretch="UniformToFill" />
                     </Ellipse.Fill>
                 </Ellipse>
             </Border>
-            <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding User.Name}"/>
+            <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding UserAccount.FullName}"/>
         </StackPanel>
 
         <mah:MetroHeader Header="Contraseña"  HorizontalAlignment="Center" VerticalAlignment="Center">
             <mah:MetroHeader.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Foreground="{DynamicResource FlyoutForegroundBrush}" Kind="TextboxPassword" Margin="0,0,5,0" />
+                        <iconPacks:PackIconMaterial VerticalAlignment="Center" Foreground="{DynamicResource FlyoutForegroundBrush}" Kind="FormTextboxPassword"  Margin="0,0,5,0" />
                         <TextBlock VerticalAlignment="Center" FontSize="15" Foreground="{DynamicResource FlyoutForegroundBrush}" Text="{Binding}" />
                     </StackPanel>
                 </DataTemplate>
@@ -50,7 +50,7 @@
             <Button Style="{StaticResource ButtonStyle}" Command="{Binding ReturnCommand}">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial VerticalAlignment="Center"  Kind="KeyboardReturn" />
-                    <Label Content="Regresar" />
+                    <Label Content="Return" />
                 </StackPanel>
             </Button>
 
@@ -59,7 +59,7 @@
                     CommandParameter="{Binding ElementName=PasswordBox}">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial VerticalAlignment="Center"  Kind="ArrowRightThick" />
-                    <Label Content="Entrar" />
+                    <Label Content="Login" />
                 </StackPanel>
             </Button>
 
