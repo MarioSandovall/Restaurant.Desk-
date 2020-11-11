@@ -70,8 +70,8 @@ namespace Business.ViewModels.Home
             _eventAggregator = eventAggregator;
             _dataService = dataService;
 
-            MenuItems = new ObservableCollection<LookupItem>();
             Options = new ObservableCollection<LookupItem>();
+            MenuItems = new ObservableCollection<LookupItem>();
 
             NavCommand = new DelegateCommand(OnSelectLocation);
 
@@ -83,22 +83,17 @@ namespace Business.ViewModels.Home
 
         public void Load()
         {
-            if (MenuItems.Count > 0) return;
-
-            var lookup = _lookupService.GetMenuOptions().ToList();
-            var isAdmin = _dataService.IsAdmin;
-
-            foreach (var menu in lookup)
+            if (MenuItems.Count == 0)
             {
-                if (menu.IsForAdmin && !isAdmin) continue;
-                MenuItems.Add(menu);
-            }
+                foreach (var menuOption in _lookupService.GetMenuOptions().ToList())
+                {
+                    MenuItems.Add(menuOption);
+                }
 
-            lookup = _lookupService.GetSettingsOptions().ToList();
-            foreach (var option in lookup)
-            {
-                if (option.IsForAdmin && !isAdmin) continue;
-                Options.Add(option);
+                foreach (var settingsOption in _lookupService.GetSettingsOptions().ToList())
+                {
+                    Options.Add(settingsOption);
+                }
             }
         }
 

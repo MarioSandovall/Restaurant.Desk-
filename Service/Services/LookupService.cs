@@ -1,6 +1,7 @@
 ﻿using Model.Models;
 using Model.Utils;
 using Service.Interfaces;
+using Service.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,50 +10,45 @@ namespace Service.Services
     public class LookupService : ILookupServices
     {
         private readonly IUserService _userService;
-        public LookupService(
-            IUserService userService)
+        public LookupService(IUserService userService)
         {
             _userService = userService;
         }
 
         public IEnumerable<LookupItem> GetMenuOptions()
         {
-            yield return new LookupItem()
+            yield return new LookupItem
             {
                 Name = "Home",
-                IsForAdmin = false,
-                Action = MenuAction.GoToHome,
-                Image = "/Wpf;component/Resources/Images/Menu/Home.png",
+                Image = MenuImages.Home,
+                Action = MenuAction.GoToHome
             };
 
             if (_userService.IsCasher)
             {
-                yield return new LookupItem()
+                yield return new LookupItem
                 {
                     Name = "Cash Register",
-                    IsForAdmin = false,
-                    Action = MenuAction.GoToCashRegister,
-                    Image = "/Wpf;component/Resources/Images/Menu/CountingMachine.png",
+                    Image = MenuImages.CashRegister,
+                    Action = MenuAction.GoToCashRegister
                 };
             }
 
             if (_userService.IsAdmin)
             {
-                yield return new LookupItem()
+                yield return new LookupItem
                 {
                     Name = "Admin",
-                    IsForAdmin = true,
-                    Action = MenuAction.GoToAdmin,
-                    Image = "/Wpf;component/Resources/Images/Menu/Admin.png",
+                    Image = MenuImages.Admin,
+                    Action = MenuAction.GoToAdmin
                 };
             }
 
             yield return new LookupItem()
             {
                 Name = "Profile",
-                IsForAdmin = false,
-                Action = MenuAction.GoToUserInformation,
-                Image = "/Wpf;component/Resources/Images/Menu/UserProfile.png",
+                Image = MenuImages.Profile,
+                Action = MenuAction.GoToUserInformation
             };
         }
 
@@ -61,25 +57,22 @@ namespace Service.Services
             yield return new LookupItem()
             {
                 Name = "Update",
-                IsForAdmin = false,
+                Image = MenuImages.Update,
                 Action = MenuAction.UpdateApplication,
-                Image = "/Wpf;component/Resources/Images/Menu/Update.png",
             };
 
             yield return new LookupItem()
             {
                 Name = "Settings",
-                IsForAdmin = false,
-                Action = MenuAction.GoToSettings,
-                Image = "/Wpf;component/Resources/Images/Menu/Settings.png",
+                Image = MenuImages.Settings,
+                Action = MenuAction.GoToSettings
             };
 
-            yield return new LookupItem()
+            yield return new LookupItem
             {
                 Name = "Close",
-                IsForAdmin = false,
-                Action = MenuAction.Exit,
-                Image = "/Wpf;component/Resources/Images/Menu/Close.png",
+                Image = MenuImages.Close,
+                Action = MenuAction.Exit
             };
         }
 
