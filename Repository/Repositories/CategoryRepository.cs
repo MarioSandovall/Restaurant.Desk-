@@ -4,7 +4,6 @@ using Repository.Extensions;
 using Repository.Interfaces;
 using Service.Interfaces;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Repository.Repositories
@@ -19,7 +18,7 @@ namespace Repository.Repositories
         {
 
             var url = $"{Controller}?restaurantId={restaurantId}";
-            var response = await WebService.Client.GetAsync(url);
+            var response = await WebService.GetAsync(url);
             return await response.ReadHttpContentAsync<ICollection<Category>>();
         }
 
@@ -27,7 +26,7 @@ namespace Repository.Repositories
         {
 
             var url = $"{Controller}";
-            var response = await WebService.Client.PostAsJsonAsync(url, category);
+            var response = await WebService.PostAsync(url, category);
             return await response.ReadHttpContentAsync<Category>();
 
         }
@@ -36,7 +35,7 @@ namespace Repository.Repositories
         {
 
             var url = $"{Controller}?categoryId={categoryId}";
-            var response = await WebService.Client.DeleteAsync(url);
+            var response = await WebService.DeleteAsync(url);
             return await response.ReadHttpContentAsync<int>();
 
         }

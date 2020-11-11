@@ -21,8 +21,6 @@ namespace Business.ViewModels.Home
 
         public ObservableCollection<AccentColor> AccentColors { get; set; }
 
-        //public ObservableCollection<AccentColor> Themes { get; set; }
-
         public ObservableCollection<string> Printers { get; set; }
 
         private string _selectedPrinter;
@@ -123,6 +121,7 @@ namespace Business.ViewModels.Home
             catch (Exception ex)
             {
                 _logService.Write(ex);
+                while (ex.InnerException != null) ex = ex.InnerException;
                 await _dialogService.ShowMessageAsync(ex.Message);
             }
         }
@@ -136,6 +135,7 @@ namespace Business.ViewModels.Home
             catch (Exception ex)
             {
                 _logService.Write(ex);
+                while (ex.InnerException != null) ex = ex.InnerException;
                 await _dialogService.ShowMessageAsync(ex.Message);
             }
         }
@@ -143,10 +143,9 @@ namespace Business.ViewModels.Home
         private void InitializePrinters()
         {
             Printers.Clear();
-            foreach (var printer in _printingService.GetPrinters())
-            {
-                Printers.Add(printer);
-            }
+
+            Printers.AddRange(_printingService.GetPrinters());
+
             SelectedPrinter = _printingService.DefaultPrinter;
         }
 
@@ -186,12 +185,15 @@ namespace Business.ViewModels.Home
             try
             {
                 var themeProperty = ObjectHelper.PropertyName<ConfigApp>(x => x.Theme);
+
                 _configService.UpdateProperty(themeProperty, SelectedTheme.Name);
+                
                 _configService.LoadTheme();
             }
             catch (Exception ex)
             {
                 _logService.Write(ex);
+                while (ex.InnerException != null) ex = ex.InnerException;
                 await _dialogService.ShowMessageAsync(ex.Message);
             }
         }
@@ -205,6 +207,7 @@ namespace Business.ViewModels.Home
             catch (Exception ex)
             {
                 _logService.Write(ex);
+                while (ex.InnerException != null) ex = ex.InnerException;
                 await _dialogService.ShowMessageAsync(ex.Message);
             }
         }
@@ -218,6 +221,7 @@ namespace Business.ViewModels.Home
             catch (Exception ex)
             {
                 _logService.Write(ex);
+                while (ex.InnerException != null) ex = ex.InnerException;
                 await _dialogService.ShowMessageAsync(ex.Message);
             }
         }

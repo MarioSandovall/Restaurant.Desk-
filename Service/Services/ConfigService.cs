@@ -19,8 +19,9 @@ namespace Service.Services
 
         public void LoadTheme()
         {
-            var file = GetFile();
-            RefreshTheme(file);
+            var filePath = GetConfigFilePath();
+
+            RefreshTheme(filePath);
         }
 
         public void DefaultTheme()
@@ -32,46 +33,55 @@ namespace Service.Services
 
         public void UpdateProperty(string propertyName, object value)
         {
-            var file = GetFile();
-            var config = file.ReadJson<ConfigApp>();
-            config.GetType().GetProperty(propertyName)?.SetValue(config, value);
-            config.WriteJson(file);
+            var filePath = GetConfigFilePath();
+
+            var configApp = filePath.ReadJson<ConfigApp>();
+
+            configApp.GetType().GetProperty(propertyName)?.SetValue(configApp, value);
+
+            configApp.WriteJson(filePath);
         }
 
         public ConfigApp GetConfiguration()
         {
-            return GetFile().ReadJson<ConfigApp>();
+            return GetConfigFilePath().ReadJson<ConfigApp>();
         }
 
         private static void CreateFile(string path)
         {
-            new ConfigApp
+            var configApp = new ConfigApp
             {
                 Theme = ConfigHelper.Theme,
                 Printer = ConfigHelper.Printer,
                 AccentColor = ConfigHelper.AccentColor,
-                IsPrinterActivated = ConfigHelper.IsPrinterActivated,
-            }.WriteJson(path);
+                IsPrinterActivated = ConfigHelper.IsPrinterActivated
+            };
+
+            configApp.WriteJson(path);
         }
 
-        private void RefreshTheme(string file)
+        private void RefreshTheme(string filePath)
         {
-            var config = file.ReadJson<ConfigApp>();
-            ThemeManager.ChangeAppStyle(_windowService.Window,
-                ThemeManager.GetAccent(config.AccentColor),
-                ThemeManager.GetAppTheme(config.Theme));
+            var configApp = filePath.ReadJson<ConfigApp>();
+
+            var newTheme = ThemeManager.GetAppTheme(configApp.Theme);
+            var newAccent = ThemeManager.GetAccent(configApp.AccentColor);
+
+            ThemeManager.ChangeAppStyle(_windowService.Window, newAccent, newTheme);
         }
 
 
-        private static string GetFile()
+        private static string GetConfigFilePath()
         {
-            var directory = ConfigHelper.Directory;
-            directory = Path.Combine(directory, SystemDirectory.Configuration);
-            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            var directoryPath = ConfigHelper.Directory;
 
-            var file = Path.Combine(directory, $"{nameof(ConfigApp)}.json");
-            if (!File.Exists(file)) CreateFile(file);
-            return file;
+            directoryPath = Path.Combine(directoryPath, SystemDirectory.Configuration);
+            if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+
+            var filePath = Path.Combine(directoryPath, $"{nameof(ConfigApp)}.json");
+            if (!File.Exists(filePath)) CreateFile(filePath);
+
+            return filePath;
         }
 
     }

@@ -40,6 +40,7 @@ namespace Business.ViewModels.Login
         #endregion
 
         private readonly ILogService _logService;
+        private readonly IWebService _webService;
         private readonly IUserService _userService;
         private readonly ILoginRepository _repository;
         private readonly IDialogService _dialogService;
@@ -47,6 +48,7 @@ namespace Business.ViewModels.Login
 
         public LoginViewModel(
             ILogService logService,
+            IWebService webService,
             IUserService userService,
             ILoginRepository repository,
             IDialogService dialogService,
@@ -54,6 +56,7 @@ namespace Business.ViewModels.Login
             IOfficeChooserViewModel officeChooserViewModel)
             : base(dialogService)
         {
+            _webService = webService;
             _logService = logService;
             _repository = repository;
             _userService = userService;
@@ -101,6 +104,8 @@ namespace Business.ViewModels.Login
                         var loggedUser = await _repository.GetUserAsync(AuthenticateModel);
 
                         _userService.SetUser(loggedUser);
+
+                        _webService.SetToken(loggedUser.Token);
 
                         _eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(MenuAction.GoToHome);
 

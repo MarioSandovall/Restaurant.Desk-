@@ -25,15 +25,15 @@ namespace Business.ViewModels.Home
 
         #endregion
 
-        public NavigationItemViewModel(IEventAggregator ea, LookupItem model, string color)
+        public NavigationItemViewModel(IEventAggregator eventAggregator, LookupItem lookupItem, string color)
         {
 
-            Name = model.Name;
-            Action = model.Action;
-            Image = model.Image;
             Color = color;
+            Name = lookupItem.Name;
+            Image = lookupItem.Image;
+            Action = lookupItem.Action;
 
-            NavCommand = new DelegateCommand(() => ea.GetEvent<BeforeNavigationEvent>().Publish(Action));
+            NavCommand = new DelegateCommand(() => eventAggregator.GetEvent<BeforeNavigationEvent>().Publish(Action));
         }
 
     }

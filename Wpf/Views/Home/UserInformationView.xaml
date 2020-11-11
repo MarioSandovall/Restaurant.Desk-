@@ -20,11 +20,11 @@
             <Border BorderBrush="{DynamicResource AccentBaseColorBrush}" BorderThickness="1" CornerRadius="100" Height="130" Width="130"  >
                 <Ellipse>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="{Binding User.Image, Mode=OneWay}" Stretch="UniformToFill"  />
+                        <ImageBrush ImageSource="{Binding ProfileUser.Image, Mode=OneWay}" Stretch="UniformToFill"  />
                     </Ellipse.Fill>
                 </Ellipse>
             </Border>
-            <TextBlock HorizontalAlignment="Center" FontSize="25" TextWrapping="Wrap" TextAlignment="Center" Margin="5" Text="{Binding User.FullName}"></TextBlock>
+            <TextBlock HorizontalAlignment="Center" FontSize="25" TextWrapping="Wrap" TextAlignment="Center" Margin="5" Text="{Binding ProfileUser.FullName}"></TextBlock>
         </StackPanel>
 
         <Grid Grid.Row="1" DockPanel.Dock="Top" >
@@ -40,21 +40,21 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0"  Grid.Row="0" Margin="5,15" FontSize="15" Text="Imagen : "/>
+            <TextBlock Grid.Column="0"  Grid.Row="0" Margin="5,15" FontSize="15" Text="Image : "/>
             <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,5">
                 <Button Style="{StaticResource ButtonStyle}"  HorizontalAlignment="Left" Command="{Binding LoadImageCommand}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <iconPacks:PackIconModern Kind="Image" Margin="3"/>
-                        <Label Content="Seleccionar"/>
+                        <Label Content="Select Image"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
-            
-            <TextBlock Grid.Column="0"  Grid.Row="1" Margin="5,10" FontSize="15" Text="Nombre: "/>
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="5,10"  Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-            <TextBlock Grid.Column="0"  Grid.Row="2" Margin="5,10" Text="Apellido: " FontSize="15"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="5,10"  Text="{Binding User.LastName , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock Grid.Column="0"  Grid.Row="1" Margin="5,10" FontSize="15" Text="Name: "/>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="5,10"  Text="{Binding ProfileUser.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <TextBlock Grid.Column="0"  Grid.Row="2" Margin="5,10" Text="LastName: " FontSize="15"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="5,10"  Text="{Binding ProfileUser.LastName , UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </Grid>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
@@ -62,14 +62,14 @@
             <Button Style="{StaticResource ButtonStyle}"  HorizontalAlignment="Left" Command="{Binding CloseCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <iconPacks:PackIconModern Kind="Close" Margin="3"/>
-                    <Label Content="Cerrar"/>
+                    <Label Content="Close"/>
                 </StackPanel>
             </Button>
 
             <Button Style="{StaticResource ButtonStyle}"  HorizontalAlignment="Left" Command="{Binding SaveCommand}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <iconPacks:PackIconModern Kind="Save" Margin="3"/>
-                    <Label Content="Guardar"/>
+                    <Label Content="Save"/>
                 </StackPanel>
             </Button>
         </StackPanel>

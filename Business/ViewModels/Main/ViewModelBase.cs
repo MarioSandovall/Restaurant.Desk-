@@ -97,7 +97,7 @@ namespace Business.ViewModels.Main
         {
             if (!_progress.IsCanceled) return;
             var webService = Bootstrapper.Instance.Container.Resolve<IWebService>();
-            webService.Client.CancelPendingRequests();
+            webService.CancelPendingRequests();
         }
 
     }
