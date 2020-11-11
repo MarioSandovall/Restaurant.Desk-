@@ -1,9 +1,8 @@
-﻿using Business.Events.Administrator;
-using Business.Interfaces.Home;
+﻿using Business.Interfaces.Home;
 using Business.ViewModels.Main;
-using Business.Wrappers;
+using Business.Wrappers.Home;
 using Microsoft.Win32;
-using Model.Models;
+using Model.Models.Home;
 using Prism.Commands;
 using Prism.Events;
 using Repository.Interfaces;
@@ -20,11 +19,11 @@ namespace Business.ViewModels.Home
 
         #region Properties
 
-        private UserWrapper _user;
-        public UserWrapper User
+        private ProfileUserWrapper _profileUser;
+        public ProfileUserWrapper ProfileUser
         {
-            get => _user;
-            set => SetProperty(ref _user, value);
+            get => _profileUser;
+            set => SetProperty(ref _profileUser, value);
         }
 
         #endregion
@@ -36,20 +35,20 @@ namespace Business.ViewModels.Home
         #endregion
 
         private readonly ILogService _logService;
-        private readonly IDataService _dataService;
+        private readonly IUserService _userService;
         private readonly IDialogService _dialogService;
         private readonly IUserRepository _userRepository;
         private readonly IEventAggregator _eventAggregator;
         public UserInformationViewModel(
+            IUserService userService,
             IDialogService dialogService,
             IUserRepository userRepository,
-            IDataService dataService,
             IEventAggregator eventAggregator,
             ILogService logService)
             : base(nameof(UserInformationViewModel), eventAggregator, dialogService)
         {
             _logService = logService;
-            _dataService = dataService;
+            _userService = userService;
             _dialogService = dialogService;
             _userRepository = userRepository;
             _eventAggregator = eventAggregator;
@@ -59,17 +58,25 @@ namespace Business.ViewModels.Home
 
         public void Load()
         {
-            var infoUser = new User(_dataService.User);
-            User = new UserWrapper(infoUser);
-            User.PropertyChanged -= UserOnPropertyChanged;
-            User.PropertyChanged += UserOnPropertyChanged;
+            var userProfile = new ProfileUser
+            {
+                Id = _userService.Id,
+                Name = _userService.Name,
+                Image = _userService.Image,
+                LastName = _userService.LastName
+            };
+
+            ProfileUser = new ProfileUserWrapper(userProfile);
+
+            ProfileUser.PropertyChanged -= UserOnPropertyChanged;
+            ProfileUser.PropertyChanged += UserOnPropertyChanged;
 
             ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
         }
 
         private void UserOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(User.HasErrors))
+            if (e.PropertyName == nameof(ProfileUser.HasErrors))
             {
                 ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
             }
@@ -79,17 +86,17 @@ namespace Business.ViewModels.Home
         {
             try
             {
-                var httpResponse = await ShowProgressAsync(async () => await _userRepository.UpdateUserInfoAsync(User.Model));
-                if (httpResponse.IsSuccess)
-                {
-                    _dataService.SetUser(User.Model);
-                    _eventAggregator.GetEvent<AfterUserInfoSavedEvent>().Publish();
-                    OnCloseExecute();
-                }
-                else
-                {
-                    await _dialogService.ShowMessageAsync(httpResponse.Message, httpResponse.Title);
-                }
+                //var httpResponse = await ShowProgressAsync(async () => await _userRepository.UpdateUserInfoAsync(ProfileUser.Model));
+                //if (httpResponse.IsSuccess)
+                //{
+                //    //_dataService.SetUser(ProfileUser.Model);
+                //    _eventAggregator.GetEvent<AfterUserInfoSavedEvent>().Publish();
+                //    OnCloseExecute();
+                //}
+                //else
+                //{
+                //    await _dialogService.ShowMessageAsync(httpResponse.Message, httpResponse.Title);
+                //}
             }
             catch (Exception ex)
             {
@@ -98,7 +105,7 @@ namespace Business.ViewModels.Home
             }
         }
 
-        protected override bool OnCanSaveExecute() => User != null && !_user.HasErrors;
+        protected override bool OnCanSaveExecute() => ProfileUser != null && !_profileUser.HasErrors;
 
         private void OnLoadImageExecute()
         {
@@ -110,7 +117,7 @@ namespace Business.ViewModels.Home
 
             if (openFile.ShowDialog() == true)
             {
-                User.Image = openFile.FileName.ImgUrlToByteArray();
+                ProfileUser.Image = openFile.FileName.ImgUrlToByteArray();
             }
         }
     }

@@ -106,7 +106,9 @@ namespace Business.ViewModels.Home
         private void OnAfterNavigationEvent(AfterNavigationEventArgs args)
         {
             CurrentViewModel = args.ViewModel;
+
             IsHambugerMenuOpen = args.IsHamburgerMenuOpen;
+
             OnVisibleMenu(args.IsMenuVisible);
         }
 

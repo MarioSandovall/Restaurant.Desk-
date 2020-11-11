@@ -19,7 +19,11 @@ namespace Service.Services
 
         public bool IsCasher { get; private set; }
 
-        public string FullName { get; private set; }
+        public string Name { get; private set; }
+
+        public string LastName { get; private set; }
+
+        public string FullName => $"{Name} {LastName}";
 
         public string OfficeName { get; private set; }
 
@@ -28,8 +32,9 @@ namespace Service.Services
         public void SetUser(LoginUser user)
         {
             Id = user.Id;
+            Name = user.Name;
             Email = user.Email;
-            FullName = user.FullName;
+            LastName = user.LastName;
             OfficeName = user.OfficeName;
             RestaurantName = user.RestaurantName;
             Image = user.Image ?? Images.Profile.ImgUrlToByteArray();

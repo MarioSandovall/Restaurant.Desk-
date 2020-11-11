@@ -16,6 +16,10 @@ namespace Service.Interfaces
 
         string FullName { get; }
 
+        string Name { get; }
+
+        string LastName { get; }
+
         string OfficeName { get; }
 
         string RestaurantName { get; }

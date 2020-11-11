@@ -202,6 +202,7 @@
     <Compile Include="Wrappers\OrderDetailWrapper.cs" />
     <Compile Include="Wrappers\OrderWrapper.cs" />
     <Compile Include="Wrappers\ProductWrapper.cs" />
+    <Compile Include="Wrappers\Home\ProfileUserWrapper.cs" />
     <Compile Include="Wrappers\RestaurantWrapper.cs" />
     <Compile Include="Wrappers\TableWrapper.cs" />
     <Compile Include="Wrappers\UserAccountWrapper.cs" />
